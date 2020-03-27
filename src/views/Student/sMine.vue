@@ -1,38 +1,31 @@
 <template>
-    <div>
-        <h1>这是个人信息页面</h1>
-        <Form :model="formLeft" label-position="left" :label-width="100">
+    <div class="layout">
+        <br>
+        <Form :model="formRight" label-position="right" :label-width="80" inline>
+            <FormItem label="学号">
+                <Input v-model="formRight.input"></Input>
+            </FormItem>
             <FormItem label="姓名">
-
-            </FormItem>
-            <FormItem label="班级">
-                <Input v-model="formLeft.input2"></Input>
-            </FormItem>
-            <FormItem label="手机号">
-                <Input v-model="formLeft.input3"></Input>
-            </FormItem>
-        </Form>
-        <Form :model="formRight" label-position="right" :label-width="100">
-            <FormItem label="Title">
-                <Input v-model="formRight.input1"></Input>
-            </FormItem>
-            <FormItem label="Title name">
                 <Input v-model="formRight.input2"></Input>
             </FormItem>
-            <FormItem label="Aligned title">
+            <br>
+            <FormItem label="性别">
+                <RadioGroup v-model="formRight.radio">
+                    <Radio label="male">男</Radio>
+                    <Radio label="female">女</Radio>
+                </RadioGroup>
+            </FormItem>
+            <FormItem label="班级">
                 <Input v-model="formRight.input3"></Input>
             </FormItem>
-        </Form>
-        <Form :model="formTop" label-position="top">
-            <FormItem label="Title">
-                <Input v-model="formTop.input1"></Input>
+            <br>
+            <FormItem label="手机号">
+                <Input v-model="formRight.input4"></Input>
             </FormItem>
-            <FormItem label="Title name">
-                <Input v-model="formTop.input2"></Input>
+            <FormItem label="账号">
+                <Input v-model="formRight.input5"></Input>
             </FormItem>
-            <FormItem label="Aligned title">
-                <Input v-model="formTop.input3"></Input>
-            </FormItem>
+            <br>
             <FormItem>
                 <Button type="primary" @click="">提交修改</Button>
             </FormItem>
@@ -45,20 +38,12 @@
         name: "sMine",
         data () {
             return {
-                formLeft: {
-                    input1: '',
-                    input2: '',
-                    input3: ''
-                },
                 formRight: {
                     input1: '',
                     input2: '',
-                    input3: ''
-                },
-                formTop: {
-                    input1: '',
-                    input2: '',
-                    input3: ''
+                    input3: '',
+                    input4: '',
+                    input5: ''
                 }
             }
         }
@@ -66,5 +51,8 @@
 </script>
 
 <style scoped>
-
+    .layout{
+        background-color: #ffffff;
+        align-items: center;
+    }
 </style>

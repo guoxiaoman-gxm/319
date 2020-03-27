@@ -1,5 +1,9 @@
 <template>
-    $END$
+    <div>
+        <h1>
+            已选题目
+        </h1>
+    </div>
 </template>
 
 <script>

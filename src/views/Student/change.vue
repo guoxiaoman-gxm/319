@@ -1,14 +1,12 @@
 <template>
     <div>
-        <h1>
-            这是申请换题页面
-        </h1>
+        <h1>申请换题</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: "change"
+        name: "change",
     }
 </script>
 

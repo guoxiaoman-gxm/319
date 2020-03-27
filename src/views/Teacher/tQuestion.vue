@@ -1,5 +1,9 @@
 <template>
-    $END$
+    <div>
+        <h1>
+            这是已发布的题目
+        </h1>
+    </div>
 </template>
 
 <script>
