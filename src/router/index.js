@@ -13,6 +13,12 @@ const routes = [
                 name: 'sLogin',
                 component: () => import('../views/Student/sLogin.vue')
             },
+            //查询题目
+            {
+                path: 'search',
+                name: 'search',
+                component: () => import('../views/Student/search.vue'),
+            },
             //个人信息
             {
                 path: 'sMine',
@@ -23,7 +29,15 @@ const routes = [
             {
                 path: 'choose',
                 name: 'choose',
-                component: () => import('../views/Student/choose.vue')
+                component: () => import('../views/Student/choose.vue'),
+                children:[
+                    //题目详情
+                    {
+                        path: 'detail',
+                        name: 'detail',
+                        component: () => import('../components/question/queDetail.vue')
+                    }
+                ]
             },
             //申请换题
             {
@@ -37,6 +51,7 @@ const routes = [
                 name: 'haveChoosed',
                 component: () => import('../views/Student/haveChoosed.vue')
             },
+            //修改密码
             {
                 path: 'changepwd',
                 name: 'changepwd',

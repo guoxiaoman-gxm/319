@@ -6,15 +6,10 @@
                     <Menu mode="horizontal" theme="dark" active-name="1">
                         <div class="layout-logo">学生选题系统</div>
                         <div class="layout-nav">
-                            <MenuItem name="1">
+                            <MenuItem name="1" to="/search">
                                 <br>
-                                <input type="text"></input>
                                 <Button shape="circle" icon="ios-search"></Button>
                             </MenuItem>
-
-                        </div>
-                        <div class="demo-avatar">
-                            <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
                         </div>
                     </Menu>
                 </Header>
@@ -38,10 +33,7 @@
                                         <MenuItem name="2-1" to="/choose">
                                             开始选题
                                         </MenuItem>
-                                        <MenuItem name="2-2" to="/change">
-                                            申请换题
-                                        </MenuItem>
-                                        <MenuItem name="2-3" to="/haveChoosed">已选题目</MenuItem>
+                                        <MenuItem name="2-2" to="/haveChoosed">已选题目</MenuItem>
                                     </Submenu>
                                     <Submenu name="3">
                                         <template slot="title">
@@ -99,5 +91,6 @@
 <script>
 
     export default {
+
     }
 </script>

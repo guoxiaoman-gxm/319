@@ -1,16 +1,8 @@
 <template>
     <div>
         <List>
-            <ListItem>
-                <ListItemMeta title="接口技术实训" description="1.This is description, this is description." />
-                <template slot="action">
-                    <li>
-                        <a href="">选题</a>
-                    </li>
-                </template>
-            </ListItem>
-            <ListItem>
-                <ListItemMeta title="接口技术实训" description="2.This is description, this is description." />
+            <ListItem v-for="i in queList" :key="i.titleId" to="/detail">
+                <ListItemMeta :title="i.titleName" :description="i.detail" />
                 <template slot="action">
                     <li>
                         <a href="">选题</a>
@@ -23,7 +15,19 @@
 
 <script>
     export default {
-        name: "choose"
+        name: "choose",
+        data () {
+            return {
+                queList:'',
+            }
+        },
+        mounted() {
+            this.axios.get('/api/student/title/scan').then(res=>{
+                this.queList=res.data.data.questions;
+            }).catch(err=>{
+                console.log("error",error)
+            })
+        }
     }
 </script>
 
