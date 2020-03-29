@@ -30,14 +30,12 @@ const routes = [
                 path: 'choose',
                 name: 'choose',
                 component: () => import('../views/Student/choose.vue'),
-                children:[
-                    //题目详情
-                    {
-                        path: 'detail',
-                        name: 'detail',
-                        component: () => import('../components/question/queDetail.vue')
-                    }
-                ]
+            },
+            //题目详情
+            {
+                path: '/detail',
+                name: 'detail',
+                component: () => import('../components/question/queDetail.vue')
             },
             //申请换题
             {

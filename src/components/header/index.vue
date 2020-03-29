@@ -1,23 +1,23 @@
 <template>
     <div class="layout">
-    <Layout>
-        <Header>
-            <Menu mode="horizontal" theme="dark" active-name="1">
-                <div class="layout-logo">
-                    选题系统
-                </div>
-                <div class="layout-nav">
-                    <MenuItem name="1">
-                        <Button icon="ios-search" width="200px">Search</Button>&nbsp;&nbsp;
-                        <Button shape="circle" icon="ios-search"></Button>
-                    </MenuItem>
-                </div>
-                <div class="demo-avatar">
-                    <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
-                </div>
-            </Menu>
-        </Header>
-    </Layout>
+        <Layout>
+            <Header>
+                <Menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-logo">
+                        选题系统
+                    </div>
+                    <div class="layout-nav">
+                        <MenuItem name="1">
+                            <Button icon="ios-search" width="200px">Search</Button>&nbsp;&nbsp;
+                            <Button shape="circle" icon="ios-search"></Button>
+                        </MenuItem>
+                    </div>
+                    <div class="demo-avatar">
+                        <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
+                    </div>
+                </Menu>
+            </Header>
+        </Layout>
     </div>
 </template>
 

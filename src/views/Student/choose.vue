@@ -1,15 +1,16 @@
 <template>
     <div>
-        <List>
-            <ListItem v-for="i in queList" :key="i.titleId" to="/detail">
-                <ListItemMeta :title="i.titleName" :description="i.detail" />
-                <template slot="action">
-                    <li>
-                        <a href="">选题</a>
-                    </li>
-                </template>
-            </ListItem>
-        </List>
+        <ul>
+            <li v-for="i in queList">
+                <Card><!--加了to字就会变成蓝色的，很丑-->
+                    <div style="text-align:center">
+                        <h3>{{i.titleName}}</h3>
+                        <h4>{{i.detail}}</h4>
+                        <router-link to="/detail">查看详情</router-link>
+                    </div>
+                </Card>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -32,5 +33,10 @@
 </script>
 
 <style scoped>
-
+    li{
+        list-style: none;
+    }
+    h4{
+        text-align: left;
+    }
 </style>
