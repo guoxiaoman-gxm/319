@@ -6,19 +6,30 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Login',
-    component: () => import('../views/Login/Login')
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../views/Login/Register')
-  },
-  {
-    path: '/findpwd',
-    name: 'Findpwd',
-    component: () => import('../views/Login/Findpwd')
+    path: '/user',
+    component: () => import("../views/User/index"),
+    children: [{
+      path: 'login',
+      name: 'login',
+      component: () => import("../views/User/Login"),
+      meta: {
+        notLogin: true
+      }
+    }, {
+      path: 'regist',
+      name: 'regist',
+      component: () => import("../views/User/Regist"),
+      meta: {
+        notLogin: true
+      }
+    }, {
+      path: 'updatePass',
+      name: 'updatePass',
+      component: () => import("../views/User/UpdatePass"),
+      meta: {
+        notLogin: true
+      }
+    }],
   },
 ]
 
