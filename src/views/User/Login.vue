@@ -107,7 +107,6 @@
                         Api.Tlogin(this.TeacherInfo)
                             .then(res=>{
                                 if(res.status==1) {
-                                    this.SET_STUINFO(this.StuInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
                                         "StudentId",
@@ -142,7 +141,6 @@
                         Api.Tlogin(this.TeacherInfo)
                             .then(res=>{
                                 if(res.status==1) {
-                                    this.SET_TEACHERINFO(this.TeacherInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
                                        "TeacherId",

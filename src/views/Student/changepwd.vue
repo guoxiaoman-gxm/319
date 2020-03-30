@@ -12,7 +12,7 @@
             <FormItem label="重复密码" prop="stuPassword2">
                 <Input v-model="StuInfo.stuPassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
             </FormItem>
-            <br><br>
+            <br>
             <ButtonGroup shape="circle" class="footer" size="default">
                 <Button type="primary" @click="handleSubmit('StuInfo')">提交</Button>
                 <Button @click="handleReset('StuInfo')">重置</Button>
@@ -105,7 +105,8 @@
 <style lang="less" scoped>
 .form{
     width: 300px;
-    margin-left: 200px;
+    margin-left: 300px;
+    margin-top: 20px;
 
     .footer {
         display: flex;

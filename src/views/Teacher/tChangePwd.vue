@@ -105,12 +105,13 @@
 <style lang="less" scoped>
     .form{
         width: 300px;
-        margin-left: 200px;
+        margin-left: 300px;
+        margin-top: 30px;
 
         .footer {
             display: flex;
             align-items: center;
-            margin-top: 40px;
+            margin-top: 20px;
             button {
                 flex: 1;
             }

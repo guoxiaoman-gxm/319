@@ -86,9 +86,14 @@ const routes = [
         component: () => import('../views/Teacher/tChangePwd.vue')
       },
       {
+        path:'quit',
+        name:'quit',
+        component:()=>import('../views/Teacher/Quit')
+      },
+      {
         path:'details',
         name:'details',
-        component:()=>import('../components/question/queDetail')
+        component:()=>import('../views/Teacher/QueDetail')
       }
     ]
   },
