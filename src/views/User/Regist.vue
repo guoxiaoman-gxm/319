@@ -3,17 +3,17 @@
         <Tabs value="Student">
             <TabPane label="学生注册" name="Student" icon="md-person">
                 <Form ref="StuInfo" :model="StuInfo" :rules="rulesStuInfo" :label-width="80" inline>
-                    <FormItem label="学号" prop="StuId">
-                        <Input v-model="StuInfo.StuId" placeholder="Student Id" style="width: 220px" ></Input>
+                    <FormItem label="学号" prop="stuId">
+                        <Input v-model="StuInfo.stuId" placeholder="Student Id" style="width: 220px" ></Input>
                     </FormItem>
-                    <FormItem label="邮箱账号" prop="Stuaccount">
-                        <Input v-model="StuInfo.Stuaccount" placeholder="Enter your e-mail" style="width: 220px" ></Input>
+                    <FormItem label="邮箱账号" prop="stuEmail">
+                        <Input v-model="StuInfo.stuEmail" placeholder="Enter your e-mail" style="width: 220px" ></Input>
                     </FormItem>
-                    <FormItem label="密 码" prop="Stupassword1">
-                        <Input v-model="StuInfo.Stupassword1" type="password" password placeholder="password" style="width: 220px" />
+                    <FormItem label="密 码" prop="stuPassword">
+                        <Input v-model="StuInfo.stuPassword" type="password" password placeholder="password" style="width: 220px" />
                     </FormItem>
-                    <FormItem label="重复密码" prop="Stupassword2">
-                        <Input v-model="StuInfo.Stupassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
+                    <FormItem label="重复密码" prop="stuPassword2">
+                        <Input v-model="StuInfo.stuPassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
                     </FormItem>
                     <FormItem label="验证码" prop="vcode">
                         <Input type="text" placeholder="验证码" v-model="StuInfo.vcode" style="width: 120px"></Input>
@@ -28,20 +28,20 @@
             </TabPane>
             <TabPane label="教师注册" name="Teacher" icon="ios-person">
                 <Form ref="TeacherInfo" :model="TeacherInfo" :rules="rulesTeacherInfo" :label-width="80">
-                    <FormItem label="工号" prop="Tid">
-                        <Input v-model="TeacherInfo.Tid" placeholder="Teacher Id" style="width: 220px" ></Input>
+                    <FormItem label="工号" prop="tId">
+                        <Input v-model="TeacherInfo.tId" placeholder="Teacher Id" style="width: 220px" ></Input>
                     </FormItem>
-                    <FormItem label="邮箱账号" prop="Temail">
-                        <Input v-model="TeacherInfo.Temail" placeholder="Enter your e-mail" style="width: 220px" ></Input>
+                    <FormItem label="邮箱账号" prop="tEmail">
+                        <Input v-model="TeacherInfo.tEmail" placeholder="Enter your e-mail" style="width: 220px" ></Input>
                     </FormItem>
-                    <FormItem label="密 码" prop="Tpassword1">
-                        <Input v-model="TeacherInfo.Tpassword1" type="password" password placeholder="password" style="width: 220px" />
+                    <FormItem label="密 码" prop="tPassword">
+                        <Input v-model="TeacherInfo.tPassword" type="password" password placeholder="password" style="width: 220px" />
                     </FormItem>
-                    <FormItem label="重复密码" prop="Tpassword2">
-                        <Input v-model="TeacherInfo.Tpassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
+                    <FormItem label="重复密码" prop="tPassword2">
+                        <Input v-model="TeacherInfo.tPassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
                     </FormItem>
-                    <FormItem label="验证码" prop="Tvcode">
-                        <Input type="text" placeholder="验证码" v-model="TeacherInfo.Tvcode" style="width: 120px"></Input>
+                    <FormItem label="验证码" prop="tVcode">
+                        <Input type="text" placeholder="验证码" v-model="TeacherInfo.tVcode" style="width: 120px"></Input>
                         <Button type="primary" @click="ThandleVerify" style="margin-right: 0px">获取验证码</Button>
                     </FormItem>
                     <ButtonGroup shape="circle" class="footer" size="default">
@@ -65,7 +65,7 @@
                 let vm = this;
                 if (value == '') {
                     return callback(new Error('确认密码不能为空'));
-                } else if (value != this.StuInfo.Stupassword1) {
+                } else if (value != vm.StuInfo.stuPassword) {
                     return callback(new Error('两次密码不一致'));
                 } else {
                     callback();
@@ -75,7 +75,7 @@
                 let vm = this;
                 if (value == '') {
                     return callback(new Error('确认密码不能为空'));
-                } else if (value != this.TeacherInfo.tpassword1) {
+                } else if (value != vm.TeacherInfo.tPassword) {
                     return callback(new Error('两次密码不一致'));
                 } else {
                     callback();
@@ -83,35 +83,35 @@
             };
             return {
                 StuInfo: {
-                    StuId:'',
-                    Stuaccount: '',
-                    Stupassword1:'',
-                    Stupassword2:'',
+                    stuId:'',
+                    stuEmail: '',
+                    stuPassword:'',
+                    stuPassword2:'',
                     vcode:'',
                 },
 
                 TeacherInfo: {
-                    Tid:'',
-                    Temail: '',
-                    Tpassword1:'',
-                    Tpassword2:'',
-                    Tvcode:'',
+                    tId:'',
+                    tEmail: '',
+                    tPassword:'',
+                    tPassword2:'',
+                    tVcode:'',
                 },
 
                 rulesStuInfo: {
-                    StuId:[
+                    stuId:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                     ],
-                    Stuaccount: [
+                    stuEmail: [
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                         { type: 'email', message: 'Uncorrect', trigger: 'blur' }
                     ],
-                    Stupassword1:[
+                    stuPassword:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                         { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
-                    Stupassword2:[
-                        { required: true, trigger: 'blur', validator: TpwdCheckValidate },
+                    stuPassword2:[
+                        { validator: pwdCheckValidate, trigger: 'blur', required: true },
                         { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
                     vcode: [
@@ -120,22 +120,22 @@
                 },
 
                 rulesTeacherInfo: {
-                    Tid:[
+                    tId:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                     ],
-                    Temail: [
+                    tEmail: [
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                         { type: 'email', message: 'Uncorrect', trigger: 'blur' }
                     ],
-                    Tpassword1:[
+                    tPassword:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                         { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
-                    Tpassword2:[
-                        { required: true, trigger: 'blur', validator: pwdCheckValidate },
+                    tPassword2:[
+                        { validator: TpwdCheckValidate, trigger: 'blur', required: true },
                         { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
-                    Tvcode: [
+                    tVcode: [
                         { required: true, message: 'Please fill in the password.', trigger: 'blur' },
 
                     ]
@@ -143,21 +143,21 @@
             }
         },
         computed:{
-            ...mapState(["StuentId"],["TeacherId"]),
+
         },
         methods:{
-            ...mapMutations(["SET_STUID"],["SET_TID"]),
+            ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
             ShandleSubmit(name) {
                 this.$refs[name].validate(valid => {
                     if (valid) {
                         Api.Sregist(this.StuInfo)
                             .then(res => {
                                 if (res.status == 1) {
-                                    this.SET_STUID(this.StuInfo.StuId);
+                                    this.SET_STUINFO(this.StuInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
                                         "StuentId",
-                                        this.StuInfo.StuId
+                                        this.StuInfo.stuId
                                     );
                                     this.$router.push({ name: " " });
                                 } else {
@@ -178,11 +178,11 @@
                         Api.Tregist(this.TeacherInfo)
                             .then(res => {
                                 if (res.status == 1) {
-                                    this.SET_TID(this.TeacherInfo.Tid);
+                                    this.SET_TEACHERINFO(this.TeacherInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
-                                        "tId",
-                                        this.TeacherInfo.Tid
+                                        "TeacherId",
+                                        this.TeacherInfo.tId
                                     );
                                     this.$router.push({ name: " " });
                                 } else {
@@ -198,9 +198,9 @@
                 });
             },
             ShandleVerify() {
-                let Sid = this.StuInfo.Stuaccount.trim();
-                if (Sid) {
-                    Api.SgetVerify({ Sid })
+                let email = this.StuInfo.stuEmail.trim();
+                if (email) {
+                    Api.SgetVerify({ email })
                         .then(res => {
                             if (res.status == 1) {
                                 this.$Message.success(res.msg);
@@ -216,9 +216,9 @@
                 }
             },
             ThandleVerify() {
-                let Tid = this.TeacherInfo.Temail.trim();
-                if (Tid) {
-                    Api.TgetVerify({ Tid })
+                let email = this.TeacherInfo.tEmail.trim();
+                if (email) {
+                    Api.TgetVerify({ email })
                         .then(res => {
                             if (res.status == 1) {
                                 this.$Message.success(res.msg);

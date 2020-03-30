@@ -2,29 +2,25 @@
     <div class="login1" >
         <Tabs value="Student" >
             <TabPane label="学生登录" name="Student" icon="md-person">
-                <Form ref="StudentInfo"
-                      :model="StudentInfo"
-                      :rules="ruleStudentInfo"
+                <Form ref="StuInfo"
+                      :model="StuInfo"
+                      :rules="ruleStuInfo"
                       :lable-width="60"
                       class="form"
                 >
-                    <FormItem label="学  号" prop="StuId">
-                        <Input type="text" v-model="StudentInfo.StuId" placeholder="Student-Username" style="width: 200px">
+                    <FormItem label="学  号" prop="stuId">
+                        <Input type="text" v-model="StuInfo.stuId" placeholder="Student-Username" style="width: 200px">
                             <Icon type="ios-person-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
-                    <FormItem label="密  码" prop="Password">
-                        <Input type="password" v-model="StudentInfo.Password" placeholder="Student-Password" style="width: 200px">
+                    <FormItem label="密  码" prop="stuPassword">
+                        <Input type="password" v-model="StuInfo.stuPassword" placeholder="Student-Password" style="width: 200px">
                             <Icon type="ios-lock-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
-                    <FormItem  label="验证码" prop="vcode">
-                        <Input type="text" placeholder="验证码" v-model="StudentInfo.vcode" style="width: 100px"></Input>
-                        <Button type="primary" style="margin-right: 60px">点击获取</Button>
-                    </FormItem>
                     <ButtonGroup shape="circle" class="footer" size="default">
-                        <Button type="primary" @click="StudentHandleSubmit('StudentInfo')">登录</Button>
-                        <Button @click="handleReset('StudentInfo')">重置</Button>
+                        <Button type="primary" @click="StudentHandleSubmit('StuInfo')">登录</Button>
+                        <Button @click="handleReset('StuInfo')">重置</Button>
                     </ButtonGroup>
                 </Form>
             </TabPane>
@@ -44,10 +40,6 @@
                         <Input type="password" v-model="TeacherInfo.tPasssword" placeholder="Student-Password" style="width: 200px">
                             <Icon type="ios-lock-outline" slot="prepend"></Icon>
                         </Input>
-                    </FormItem>
-                    <FormItem  label="验证码" prop="tVcode">
-                        <Input type="text" placeholder="验证码" v-model="TeacherInfo.tVcode" style="width: 100px"></Input>
-                        <Button type="primary" style="margin-right: 60px">点击获取</Button>
                     </FormItem>
                     <ButtonGroup shape="circle" class="footer" size="default">
                         <Button type="primary" @click="TeacherHandleSubmit('TeacherInfo')">登录</Button>
@@ -71,27 +63,25 @@
         name: "login",
         data() {
             return {
-                StudentInfo: {
-                    StuId: '',
-                    Password: '',
-                    vcode:'',
+                StuInfo: {
+                    stuId: '',
+                    stuPassword: '',
+
                 },
                 TeacherInfo:{
                     tId:'',
                     tPasssword:'',
-                    tVcode:'',
+
                 },
-                ruleStudentInfo: {
-                    StuId: [
+                ruleStuInfo: {
+                    stuId: [
                         { required: true, message: 'Please fill in the user name', trigger: 'blur' }
                     ],
-                    Password: [
+                    stuPassword: [
                         { required: true, message: 'Please fill in the password.', trigger: 'blur' },
                         { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                     ],
-                    tVcode: [
-                        { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                    ]
+
                 },
                 ruleTeacherInfo: {
                     tId: [
@@ -101,41 +91,46 @@
                         { required: true, message: 'Please fill in the password.', trigger: 'blur' },
                         { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                     ],
-                    tVcode: [
-                        { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-
-                    ]
                 }
             };
         },
         computed:{
-            ...mapState(["StuentId"],["TeacherId"])
+
         },
         methods:{
-            ...mapMutations(["SET_STUID"],["SET_TID"],["SET_NICKSTUID"],["SET_NICKTID"]),
+            ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
 
-            StudentHandleSubmit(name){
-                this.$refs[name].validate(valid => {
-                    if (valid) {
-                        Api.regist(this.StudentInfo)
-                            .then(res => {
-                                if (res.status == 1) {
-                                    this.SET_STUID(this.StudentInfo.StuId);
+            StudentHandleSubmit(name) {
+                this.$refs[name].validate(valid=> {
+                    if(valid) {
+                        //登录
+                        Api.Tlogin(this.TeacherInfo)
+                            .then(res=>{
+                                if(res.status==1) {
+                                    this.SET_STUINFO(this.StuInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
-                                        "TeacherId",
-                                        this.StudentInfo.StuId
+                                        "StudentId",
+                                        this.StuInfo.stuId
                                     );
-                                    this.$router.push({ name: " " });
-                                } else {
-                                    this.$Message.warning(res.msg);
+                                    Api.getStudent().then(StuInfo => {
+                                        if (StuInfo.status == 1) {
+                                            this.SET_STUINFO(this.StuInfo);
+                                            this.$Message.success(StuInfo.msg);
+                                            this.$router.push({name:""});
+                                        }else{
+                                            this.$Message.error(StuInfo.msg);
+                                        }
+                                    });
+                                }else{
+                                    this.$Message.error(res.msg)
                                 }
                             })
                             .catch(err => {
                                 this.$Message.error("请求错误或网络错误");
                             });
-                    } else {
-                        this.$Message.error("格式错误");
+                    }else{
+                        this.$Message.error("数据错误");
                     }
                 });
 
@@ -147,15 +142,15 @@
                         Api.Tlogin(this.TeacherInfo)
                             .then(res=>{
                                 if(res.status==1) {
-                                    this.SET_TID(this.TeacherInfo.tId);
+                                    this.SET_TEACHERINFO(this.TeacherInfo);
                                     this.$Message.success(res.msg);
                                     window.localStorage.setItem(
-                                        "StuId",
-                                        this.TeacherInfo.StuId
+                                       "TeacherId",
+                                       this.TeacherInfo.tId
                                     );
                                     Api.getTeacher().then(TeacherInfo => {
                                         if (TeacherInfo.status == 1) {
-                                            this.SET_NICKTID(TeacherInfo.data.nickStuId);
+                                            this.SET_TEACHERINFO(this.TeacherInfo);
                                             this.$Message.success(TeacherInfo.msg);
                                             this.$router.push({name:""});
                                         }else{
@@ -174,7 +169,6 @@
                     }
                 });
             },
-
 
             handleReset:function (name) {
                 this.$refs[name].resetFields();

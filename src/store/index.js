@@ -6,28 +6,41 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   //全局状态
   state: {
-    StuentId:'',
-    TeacherId:'',
-    nickStuId:'',
-    nickTId:'',
+    //全局学生信息
+    stuId:'',
+    StuPassword:'',
+    stuName:'',
+    stuClass:'',
+    stuSex:'',
+    stuPhone:'',
+
+    tId:'',
+    TPassword:'',
+    tName:'',
+    tCollege:'',
   },
   //改变全局状态
   mutations: {
-    SET_STUID(state,StuentId)
-    {
-      state.StuentId = StuentId;
+    SET_STUINFO(state,StuInfo){
+      state.stuId = StuInfo.stuId,
+      state.StuPassword = StuInfo.stuPassword,
+      state.stuName = StuInfo.stuName,
+      state.stuSex = StuInfo.stuSex,
+      state.stuPhone = StuInfo.stuPhone;
     },
-    SET_TID(state,TeacherId)
-    {
-      state.TeacherId = TeacherId;
+    SET_TEACHERINFO(state,TeacherInfo){
+      state.tId = TeacherInfo.tId,
+      state.TPassword = TeacherInfo.tPassword;
+      state.tName = TeacherInfo.tName;
+      state.tCollege = TeacherInfo.tCollege;
     },
-    SET_NICKSTUID(state,nickStuId)
+    SET_STUPASSWORD(state,stuPassword)
     {
-      state.nickStuId = nickStuId;
+      state.StuPassword = stuPassword
     },
-    SET_NICKTID(state,nickTId)
+    SET_TPASSWORD(state,tPassword)
     {
-      state.nickTId = nickTId;
+      state.TPassword = tPassword
     }
   },
   //数据业务逻辑
