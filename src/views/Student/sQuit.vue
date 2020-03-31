@@ -11,9 +11,10 @@
     export default {
         name: "sQuit",
         computed:{
-            ...mapMutations(["SET_STUINFO"]),
+
         },
         methods:{
+            ...mapMutations(["SET_STUINFO"]),
             // 退出登录
             logout() {
                 this.$router.push({ name: "login" });

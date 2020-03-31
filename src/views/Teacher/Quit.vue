@@ -11,9 +11,10 @@
     export default {
         name: "Quit",
         computed:{
-           ...mapMutations(["SET_TEACHERINFO"]),
+
         },
         methods:{
+            ...mapMutations(["SET_TEACHERINFO"]),
             // 退出登录
             logout() {
                 this.$router.push({ name: "login" });

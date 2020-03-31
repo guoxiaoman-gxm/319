@@ -63,9 +63,10 @@ export default {
             }
         },
         computed:{
-            ...mapState(["CHANGE_TEACHERINFO"]),
+            ...mapState([""]),
         },
         methods:{
+            ...mapMutations(["CHANGE_TEACHERINFO"]),
             handleSubmit(name) {
                 this.$refs[name].validate(valid=> {
                     if(valid) {
