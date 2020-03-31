@@ -20,24 +20,35 @@ const Api = {
         return (await axios.post('', data)).data
     },
     async SgetVerify(data) {
-        return (await axios.get('', data)).data
+        return (await axios.post('', data)).data
+    },
+    async SCheckCode(data) {
+        return (await axios.post('', data)).data
     },
     async Tregist(data) {
         return (await axios.post('', data)).data
     },
     async TgetVerify(data) {
-        return (await axios.get('', data)).data
+        return (await axios.post('', data)).data
     },
-
+    async TCheckCode(data) {
+        return (await axios.post('', data)).data
+    },
 
     //学生
     async Schangepwd(data) {
+        return (await axios.post('', data)).data;
+    },
+    async SchangeInfo(data) {
         return (await axios.post('', data)).data;
     },
 
 
     //老师
     async Tchangepwd(data) {
+        return (await axios.post('', data)).data;
+    },
+    async TchangeInfo(data) {
         return (await axios.post('', data)).data;
     },
 }

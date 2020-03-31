@@ -38,7 +38,7 @@
                                             设置
                                         </template>
                                         <MenuItem name="3-1" to="/changepwd">修改密码</MenuItem>
-                                        <MenuItem name="3-2">退出登录</MenuItem>
+                                        <MenuItem name="3-2" to="/squit">退出登录</MenuItem>
                                     </Submenu>
                                 </Menu>
                             </Sider>

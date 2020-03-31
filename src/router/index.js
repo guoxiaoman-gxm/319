@@ -58,7 +58,12 @@ const routes = [
         path: '/changepwd',
         name: 'changepwd',
         component: () => import('../views/Student/changepwd.vue')
-      }
+      },
+      {
+        path:'/squit',
+        name:'squit',
+        component:()=>import('../views/Student/sQuit')
+      },
     ]
   },
   {
@@ -93,7 +98,7 @@ const routes = [
       {
         path:'details',
         name:'details',
-        component:()=>import('../views/Teacher/QueDetail')
+        component:()=>import('../views/Teacher/queDetail')
       }
     ]
   },

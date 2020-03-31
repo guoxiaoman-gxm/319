@@ -9,23 +9,23 @@
 <script>
     import {mapState,mapMutations} from 'vuex'
     export default {
-        name: "Quit",
+        name: "sQuit",
         computed:{
-           ...mapMutations(["SET_TEACHERINFO"]),
+            ...mapMutations(["SET_STUINFO"]),
         },
         methods:{
             // 退出登录
             logout() {
                 this.$router.push({ name: "login" });
-                window.localStorage.removeItem("TeacherId");
+                window.localStorage.removeItem("StuentId");
                 this.SET_TEACHERINFO(" ");
             }
         },
     }
 </script>
 
-<style lang="less" scoped>
-.quit{
-    margin-top: 100px;
-}
+<style scoped>
+    .quit{
+        margin-top: 100px;
+    }
 </style>

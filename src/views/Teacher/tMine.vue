@@ -29,7 +29,7 @@
             </FormItem>
             <br>
             <ButtonGroup shape="circle" class="footer" size="default">
-                <Button type="primary" @click="handleSubmit('StuInfo')">提交修改</Button>
+                <Button type="primary" @click="handleSubmit('TeacherInfo')">提交修改</Button>
             </ButtonGroup>
         </Form>
     </div>
@@ -37,7 +37,10 @@
 
 <script>
 //工号，姓名，学院
-    export default {
+    import Api from "../../api";
+    import {mapState,mapMutations} from 'vuex'
+
+export default {
         name: "tMine",
         data () {
             return {
@@ -60,10 +63,30 @@
             }
         },
         computed:{
-
+            ...mapState(["CHANGE_TEACHERINFO"]),
         },
         methods:{
-
+            handleSubmit(name) {
+                this.$refs[name].validate(valid=> {
+                    if(valid) {
+                        //改变信息提交
+                        Api.TchangeInfo(this.TeacherInfo)
+                            .then(res=>{
+                                if(res.status==1) {
+                                    this.$Message.success(res.msg);
+                                    this.CHANGE_TEACHERINFO(this.TeacherInfo);
+                                }else{
+                                    this.$Message.error(res.msg)
+                                }
+                            })
+                            .catch(err => {
+                                this.$Message.error("请求错误或网络错误");
+                            });
+                    }else{
+                        this.$Message.error("数据错误");
+                    }
+                });
+            },
         }
     }
 </script>

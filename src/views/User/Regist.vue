@@ -148,6 +148,12 @@
         methods:{
             ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
             ShandleSubmit(name) {
+                let data = Api.SCheckCode(this.StuInfo.vcode);
+                if(parseInt(data.code) !=0)
+                {
+                    window.alert("验证码不正确！请重新输入");
+                    return;
+                }
                 this.$refs[name].validate(valid => {
                     if (valid) {
                         Api.Sregist(this.StuInfo)
@@ -159,7 +165,7 @@
                                         "StuentId",
                                         this.StuInfo.stuId
                                     );
-                                    this.$router.push({ name: " " });
+                                    this.$router.push({ name: "login" });
                                 } else {
                                     this.$Message.warning(res.msg);
                                 }
@@ -173,6 +179,12 @@
                 });
             },
             ThandleSubmit(name) {
+                let data = Api.TCheckCode(this.TeacherInfo.tVcode);
+                if(parseInt(data.code) !=0)
+                {
+                    window.alert("验证码不正确！请重新输入");
+                    return;
+                }
                 this.$refs[name].validate(valid => {
                     if (valid) {
                         Api.Tregist(this.TeacherInfo)
@@ -184,7 +196,7 @@
                                         "TeacherId",
                                         this.TeacherInfo.tId
                                     );
-                                    this.$router.push({ name: " " });
+                                    this.$router.push({ name: "login" });
                                 } else {
                                     this.$Message.warning(res.msg);
                                 }

@@ -41,7 +41,18 @@ export default new Vuex.Store({
     SET_TPASSWORD(state,tPassword)
     {
       state.TPassword = tPassword
-    }
+    },
+    CHANGE_STUINFO(state,student)
+    {
+      state.stuName = StuInfo.stuName,
+      state.stuSex = StuInfo.stuSex,
+      state.stuPhone = StuInfo.stuPhone;
+    },
+    CHANGE_TEACHERINFO(state,teacher)
+    {
+      state.tName = TeacherInfo.tName;
+      state.tCollege = TeacherInfo.tCollege;
+    },
   },
   //数据业务逻辑
   actions: {

@@ -53,7 +53,7 @@
                         </Layout>
                     </Content>
                 </Layout>
-                <Footer class="layout-footer-center">2019-2020 &copy; TalkingData</Footer>
+                <Footer class="layout-footer-center">选题系统——教师</Footer>
             </Layout>
         </keep-alive>
     </div>

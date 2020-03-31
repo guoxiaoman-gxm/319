@@ -104,7 +104,7 @@
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //登录
-                        Api.Tlogin(this.TeacherInfo)
+                        Api.Tlogin(this.StuInfo)
                             .then(res=>{
                                 if(res.status==1) {
                                     this.$Message.success(res.msg);
@@ -116,7 +116,7 @@
                                         if (StuInfo.status == 1) {
                                             this.SET_STUINFO(this.StuInfo);
                                             this.$Message.success(StuInfo.msg);
-                                            this.$router.push({name:""});
+                                            this.$router.push({name:" "});
                                         }else{
                                             this.$Message.error(StuInfo.msg);
                                         }
