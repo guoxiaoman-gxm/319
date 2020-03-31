@@ -5,25 +5,40 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/user',
+        component: () => import("../views/User/index"),
+        children: [{
+            path: 'login',
+            name: 'login',
+            component: () => import("../views/User/Login"),
+            meta: {
+                notLogin: true
+            }
+        }, {
+            path: 'regist',
+            name: 'regist',
+            component: () => import("../views/User/Regist"),
+            meta: {
+                notLogin: true
+            }
+        }, {
+            path: 'updatePass',
+            name: 'updatePass',
+            component: () => import("../views/User/UpdatePass"),
+            meta: {
+                notLogin: true
+            }
+        }],
+    },
+    {
         path: '/addQuestion',
         name: 'addQuestion',
         component: () => import('../views/Teacher/addQuestion.vue')
     },
     {
-        path: '/',
+        path: '/student',
         component: () => import('../views/Student/sHome.vue'),
         children:[
-            {
-                path: 'sLogin',
-                name: 'sLogin',
-                component: () => import('../views/Student/sLogin.vue')
-            },
-            //查询题目
-            {
-                path: 'search',
-                name: 'search',
-                component: () => import('../views/Student/search.vue'),
-            },
             //个人信息
             {
                 path: 'sMine',
@@ -53,7 +68,12 @@ const routes = [
                 path: 'changepwd',
                 name: 'changepwd',
                 component: () => import('../views/Student/changepwd.vue')
-            }
+            },
+            {
+                path: 'squit',
+                name: 'squit',
+                component: () => import('../views/Student/squit.vue')
+            },
         ]
     },
     {
@@ -79,6 +99,11 @@ const routes = [
                 path: 'tChangePwd',
                 name: 'tChangePwd',
                 component: () => import('../views/Teacher/tChangePwd.vue')
+            },
+            {
+                path: 'Quit',
+                name: 'Quit',
+                component: () => import('../views/Teacher/Quit.vue')
             }
         ]
     }

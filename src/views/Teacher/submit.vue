@@ -10,7 +10,7 @@
             <div class="add">
                 <br>
                 <Button type="primary" shape="circle" @click="add" icon="ios-add">
-                    <!--<router-link  to="/addQuestion" tag="span">添加题目</router-link>-->
+                    <router-link  to="/addQuestion" tag="span">添加题目</router-link>
                 </Button>
             </div>
             <br>

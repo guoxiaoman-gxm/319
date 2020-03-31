@@ -23,25 +23,25 @@
                                             <Icon type="ios-analytics"></Icon>
                                             个人信息
                                         </template>
-                                        <MenuItem name="1-1" to="/sMine">个人信息</MenuItem>
+                                        <MenuItem name="1-1" to="/student/sMine">个人信息</MenuItem>
                                     </Submenu>
                                     <Submenu name="2">
                                         <template slot="title">
                                             <Icon type="ios-keypad" ></Icon>
                                             选题管理
                                         </template>
-                                        <MenuItem name="2-1" to="/choose">
+                                        <MenuItem name="2-1" to="/student/choose">
                                             开始选题
                                         </MenuItem>
-                                        <MenuItem name="2-2" to="/haveChoosed">已选题目</MenuItem>
+                                        <MenuItem name="2-2" to="/student/haveChoosed">已选题目</MenuItem>
                                     </Submenu>
                                     <Submenu name="3">
                                         <template slot="title">
                                             <Icon type="ios-analytics"></Icon>
                                             设置
                                         </template>
-                                        <MenuItem name="3-1" to="/changepwd">修改密码</MenuItem>
-                                        <MenuItem name="3-2">退出登录</MenuItem>
+                                        <MenuItem name="3-1" to="/student/changepwd">修改密码</MenuItem>
+                                        <MenuItem name="3-2" to="/student/squit">退出登录</MenuItem>
                                     </Submenu>
                                 </Menu>
                             </Sider>

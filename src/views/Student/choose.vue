@@ -1,48 +1,43 @@
 <template>
     <div>
-        <ul>
-            <li v-for="i in queList">
-                <Card><!--加了to字就会变成蓝色的，很丑-->
-                    <div style="text-align:center">
-                        <h3>{{i.titleName}}</h3>
-                        <h4>{{i.detail}}</h4>
-                    </div>
-                    <div class="xuanti">
-                        <Button  type="primary" @click="" >确认选题</Button>
-                    </div>
-                </Card>
-            </li>
-        </ul>
+        <div class="search_head">
+            <Input class="inputName" v-model="msg"  placeholder="请输入要查询的实训名称或指导教师姓名" style="width: 300px" />
+            <Button type="primary" @click="" >查找</Button>
+        </div>
+        <div class="search_body">
+            <List>
+                <ListItem v-for="i in search_queList">
+                    <ListItemMeta :title="i.title" :description="i.detail" />
+                </ListItem>
+            </List>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "choose",
-        data () {
-            return {
-                queList:'',
+        name: "search",
+        data(){
+            return{
+                msg:'',
+                search_queList:[]
             }
         },
-        mounted() {
-            this.axios.get('/api/student/title/scan').then(res=>{
-                this.queList=res.data.data.questions;
-            }).catch(err=>{
-                console.log("error",error)
-            })
+        watch:{
+            msg(newVal){
+                this.axios.get('/api/student/title/search').then(res=> {
+                    var msg = res.data.msg;
+                    var questions = res.data.data;
+                    if(msg && questions){
+                        console.log(res.data.data.questions);
+                        this.search_queList = res.data.data.questions;
+                    }
+                })
+            }
         }
     }
 </script>
 
 <style scoped>
-    li{
-        list-style: none;
-    }
-    h4{
-        text-align: left;
-        font-family: 华文中宋;
-    }
-    .xuanti{
-        text-align: right;
-    }
+
 </style>

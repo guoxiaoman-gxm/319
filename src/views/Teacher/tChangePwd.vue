@@ -1,69 +1,121 @@
 <template>
-    <div class="layout">
-        <br>
-        <Form :model="formRight" label-position="right" inline>
-            <FormItem prop="password1" label="输入旧密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password1">
-                    <Icon type="ios-lock-outline" slot="prepend"></Icon>
-                </Input>
+    <div class="form">
+        <Form ref="TeacherInfo" :model="TeacherInfo" :rules="rulesTeacherInfo" :label-width="80">
+            <FormItem label="原密码" prop="tPassword">
+                <Input v-model="TeacherInfo.tPassword" type="password" password placeholder="password" style="width: 220px" />
             </FormItem>
             <br>
-            <FormItem prop="password2" label="输入新密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password2">
-                    <Icon type="ios-lock-outline" slot="prepend"></Icon>
-                </Input>
+            <FormItem label="新密码" prop="tPassword1">
+                <Input v-model="TeacherInfo.tPassword1" type="password" password placeholder="newpassword" style="width: 220px" />
             </FormItem>
             <br>
-            <FormItem prop="password3" label="再次输入新密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password3">
-                    <Icon type="ios-lock-outline" slot="prepend"></Icon>
-                </Input>
+            <FormItem label="重复密码" prop="tPassword2">
+                <Input v-model="TeacherInfo.tPassword2" type="password" password  placeholder="renewpassword" style="width: 220px"/>
             </FormItem>
             <br>
-            <FormItem>
-                <Button type="primary" @click="handleSubmit('formRight')">确认修改</Button>
-            </FormItem>
+            <ButtonGroup shape="circle" class="footer" size="default">
+                <Button type="primary" @click="handleSubmit('TeacherInfo')">提交</Button>
+                <Button @click="handleReset('TeacherInfo')">重置</Button>
+            </ButtonGroup>
         </Form>
     </div>
 </template>
 
 <script>
+    import {mapState,mapMutations} from 'vuex'
+    import Api from '../../api/index'
     export default {
         name: "tChangePwd",
+        computed:{
+            ...mapState(["TPassword"]),
+        },
         data () {
-            return {
-                formRight: {
-                    user: '',
-                    password: ''
-                },
-                ruleInline: {
-                    user: [
-                        { required: true, message: 'Please fill in the user name', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                        { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-                    ]
+            const pwdCheckValidate = (rule, value, callback) => {
+                let vm = this;
+                if (value == '') {
+                    return callback(new Error('确认密码不能为空'));
+                } else if (value != vm.TeacherInfo.tPassword1) {
+                    return callback(new Error('两次密码不一致'));
+                } else {
+                    callback();
                 }
+            };
+            const checkbeforePassword=(rule,value,callback) => {
+                let vm = this;
+                if(value==''){
+                    return callback(new Error('原密码不能为空'));
+                }else if(value != this.TPassword){
+                    return callback(new Error('与原密码不一致'));
+                }else{
+                    callback();
+                }
+            };
+            return {
+                TeacherInfo: {
+                    tPassword:'',
+                    tPassword1:'',
+                    tPassword2:'',
+                },
+                rulesTeacherInfo: {
+                    tPassword:[
+                        { validator: checkbeforePassword, trigger: 'blur', required: true },
+                    ],
+                    tPassword1:[
+                        { required: true, message: 'Please Fill in', trigger: 'blur' },
+                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
+                    ],
+                    tPassword2:[
+                        { validator: pwdCheckValidate, trigger: 'blur', required: true },
+                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
+                    ],
+                },
             }
         },
         methods: {
+            ...mapMutations(["SET_TPASSWORD"]),
+
+            handleReset (name) {
+                this.$refs[name].resetFields();
+            },
             handleSubmit(name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
+                this.$refs[name].validate(valid=> {
+                    if(valid) {
+                        //传密码
+                        Api.Tchangepwd(this.tPassword1)
+                            .then(res=>{
+                                if(res.status==1) {
+                                    this.SET_TPASSWORD(this.tPassword1);
+                                    this.$Message.success(res.msg);
+                                }else{
+                                    this.$Message.error(res.msg)
+                                }
+                            })
+                            .catch(err => {
+                                this.$Message.error("请求错误或网络错误");
+                            });
+                    }else{
+                        this.$Message.error("数据错误");
                     }
-                })
-            }
-        }
+                });
+            },
+        },
     }
 </script>
 
-<style scoped>
-    .layout{
-        align-items: center;
-        background-color: white;
+<style lang="less" scoped>
+    .form{
+        width: 300px;
+        margin-left: 300px;
+        margin-top: 30px;
+
+        .footer {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            button {
+                flex: 1;
+            }
+        }
     }
 </style>
+

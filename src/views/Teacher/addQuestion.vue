@@ -39,11 +39,11 @@
                             </Sider>
                             <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
                                 <div class="addBody">
-                                    <form>
-                                        题目编号： <Input v-model="value" placeholder="Enter something..." style="width: 300px" /><br><br>
-                                        题目名称： <Input v-model="value" placeholder="Enter something..." style="width: 300px" /><br><br>
-                                        题目内容：<Input v-model="value17" maxlength="300" show-word-limit type="textarea" placeholder="Enter something..." style="width: 300px" />
-                                        <br><br><Button type="primary" @click="onSubmit">保存</Button>
+                                    <form v-on:submit="addTitle">
+                                        题目编号： <input v-model="title.titleId" placeholder="实训编号" style="width: 300px" /><br><br>
+                                        题目名称： <input v-model="title.titleName" placeholder="实训名称" style="width: 300px" /><br><br>
+                                        题目内容：<input v-model="title.decribe" maxlength="300" show-word-limit type="textarea" placeholder="输入实训内容" style="width: 300px" />
+                                        <br><br><button type="submit">保存</button>
                                     </form>
                                 </div>
                             </Content>
@@ -67,23 +67,29 @@
         },
         data(){
             return{
-                form:{
-                    titleId:"",
-                    titleName:"",
-                    decribe:""
-                }
+                title:{}
             }
         },
         methods:{
-            async onSubmit(){
-                let {success} = await this.$post('/api/teacher/title',this.form);
-                if(success) this.$ms("添加成功");
-                else this.$me("添加失败");
-                this.form={
-                    titleId:"",
-                    titleName:"",
-                    decribe:""
+            addTitle(e){
+                if(!this.title.titleId || !this.title.titleName || !this.title.decribe){
+                    console.log("请添加对应信息！")
                 }
+                else{
+                    let newTitle = {
+                        titleId:this.title.titleId,
+                        titleName:this.title.titleName,
+                        decribe:this.title.decribe
+                    }
+                    this.$router.push('/Teacher/submit')
+                    /*this.$http.post("https://easy-mock.bookset.io/mock/5e7ec974a98e2502f92e9f13/api/teacher/title",newTitle)
+                        .then(function (res) {
+                            /!*this.$router.push({path:"/Teacher"});*!/
+                            this.$router.push('/Teacher')
+                        })
+                    e.preventDefault();*/
+                }
+                e.preventDefault();
             }
         }
     }

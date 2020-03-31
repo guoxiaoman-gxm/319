@@ -5,17 +5,6 @@
                 <Header>
                     <Menu mode="horizontal" theme="dark" active-name="1">
                         <div class="layout-logo">教师选题平台</div>
-                        <div class="layout-nav">
-                            <MenuItem name="1">
-                                <br>
-                                <input type="text"></input>
-                                <Button shape="circle" icon="ios-search"></Button>
-                            </MenuItem>
-
-                        </div>
-                        <div class="demo-avatar">
-                            <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
-                        </div>
                     </Menu>
                 </Header>
                 <Layout :style="{padding: '0 50px'}">
@@ -48,7 +37,7 @@
                                             设置
                                         </template>
                                         <MenuItem name="3-1" to="/Teacher/tChangePwd">修改密码</MenuItem>
-                                        <MenuItem name="3-2">退出登录</MenuItem>
+                                        <MenuItem name="3-2" to="/Teacher/Quit">退出登录</MenuItem>
                                     </Submenu>
                                 </Menu>
                             </Sider>
