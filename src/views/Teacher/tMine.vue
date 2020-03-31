@@ -2,28 +2,16 @@
     <div class="layout">
         <br>
         <Form :model="formRight" label-position="right" :label-width="80" inline>
-            <FormItem label="学号">
-                <Input v-model="formRight.input"></Input>
+            <FormItem label="编号">
+                <Input v-model="formRight.input1"></Input>
             </FormItem>
+            <br>
             <FormItem label="姓名">
                 <Input v-model="formRight.input2"></Input>
             </FormItem>
             <br>
-            <FormItem label="性别">
-                <RadioGroup v-model="formRight.radio">
-                    <Radio label="male">男</Radio>
-                    <Radio label="female">女</Radio>
-                </RadioGroup>
-            </FormItem>
-            <FormItem label="班级">
+            <FormItem label="学院">
                 <Input v-model="formRight.input3"></Input>
-            </FormItem>
-            <br>
-            <FormItem label="手机号">
-                <Input v-model="formRight.input4"></Input>
-            </FormItem>
-            <FormItem label="账号">
-                <Input v-model="formRight.input5"></Input>
             </FormItem>
             <br>
             <FormItem>
@@ -34,7 +22,6 @@
 </template>
 
 <script>
-
     export default {
         name: "tMine",
         data () {
@@ -43,11 +30,18 @@
                     input1: '',
                     input2: '',
                     input3: '',
-                    input4: '',
-                    input5: ''
                 }
             }
-        }
+        },
+        mounted() {
+            this.axios.get('/api/teacher/info').then(res=>{
+                this.formRight.input1=res.data.data.user.tId;
+                this.formRight.input2=res.data.data.user.tName;
+                this.formRight.input3 =res.data.data.user.tCollege;
+            }).catch(err=>{
+                console.log("error",error)
+            })
+        },
     }
 </script>
 

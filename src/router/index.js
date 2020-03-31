@@ -5,6 +5,11 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/addQuestion',
+        name: 'addQuestion',
+        component: () => import('../views/Teacher/addQuestion.vue')
+    },
+    {
         path: '/',
         component: () => import('../views/Student/sHome.vue'),
         children:[
@@ -30,12 +35,6 @@ const routes = [
                 path: 'choose',
                 name: 'choose',
                 component: () => import('../views/Student/choose.vue'),
-            },
-            //题目详情
-            {
-                path: '/detail',
-                name: 'detail',
-                component: () => import('../components/question/queDetail.vue')
             },
             //申请换题
             {

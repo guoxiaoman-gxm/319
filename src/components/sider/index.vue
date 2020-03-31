@@ -1,36 +1,34 @@
 <template>
     <div class="layout">
-        <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-            <Menu active-name="1-2"  theme="light" width="auto" :class="menuitemClasses">
+        <Sider hide-trigger :style="{background: '#fff'}">
+            <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
                 <Submenu name="1">
                     <template slot="title">
-                        <Icon type="ios-navigate"></Icon>
-                        <router-link to="/sMine">个人信息</router-link>
+                        <Icon type="ios-analytics"></Icon>
+                        个人信息
                     </template>
+                    <MenuItem name="1-1" to="/Teacher/tMine">个人信息</MenuItem>
                 </Submenu>
                 <Submenu name="2">
                     <template slot="title">
                         <Icon type="ios-keypad" ></Icon>
-                        选题管理
+                        题目管理
                     </template>
-                    <MenuItem name="2-1">
-                        <router-link to="/choose">开始选题</router-link>
+                    <MenuItem name="2-1" to="/Teacher/submit">
+                        提交实训
                     </MenuItem>
-                    <MenuItem name="2-2">
-                        <router-link to="/change">申请换题</router-link>
+                    <MenuItem name="2-2" to="/Teacher/tQuestion">
+                        已发题目
                     </MenuItem>
-                    <MenuItem name="2-3">已选题目</MenuItem>
-                    <MenuItem name="2-4">查询成绩</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template slot="title">
                         <Icon type="ios-analytics"></Icon>
                         设置
                     </template>
-                    <MenuItem name="3-1">Option 1</MenuItem>
-                    <MenuItem name="3-2">Option 2</MenuItem>
+                    <MenuItem name="3-1" to="/Teacher/tChangePwd">修改密码</MenuItem>
+                    <MenuItem name="3-2">退出登录</MenuItem>
                 </Submenu>
-                <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
             </Menu>
         </Sider>
     </div>

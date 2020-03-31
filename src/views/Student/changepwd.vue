@@ -3,19 +3,19 @@
         <br>
         <Form :model="formRight" label-position="right" inline>
             <FormItem prop="password1" label="输入旧密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password1">
+                <Input type="password" v-model="formRight.password1" placeholder="Password1">
                     <Icon type="ios-lock-outline" slot="prepend"></Icon>
                 </Input>
             </FormItem>
             <br>
             <FormItem prop="password2" label="输入新密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password2">
+                <Input type="password" v-model="formRight.password2" placeholder="Password2">
                     <Icon type="ios-lock-outline" slot="prepend"></Icon>
                 </Input>
             </FormItem>
             <br>
             <FormItem prop="password3" label="再次输入新密码：">
-                <Input type="password" v-model="formRight.password" placeholder="Password3">
+                <Input type="password" v-model="formRight.password3" placeholder="Password3">
                     <Icon type="ios-lock-outline" slot="prepend"></Icon>
                 </Input>
             </FormItem>
@@ -31,18 +31,29 @@
     export default {
         name: "changepwd",
         data () {
+            const pwdCheckValidate = (rule, value, callback) => {
+                let vm = this;
+                if (value == '') {
+                    return callback(new Error('确认密码不能为空'));
+                } else if (value != this.formValidate.password1) {
+                    return callback(new Error('两次密码不一致'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 formRight: {
-                    user: '',
-                    password: ''
+                    password2: '',
+                    password2:''
                 },
                 ruleInline: {
-                    user: [
-                        { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+                    password1:[
+                        { required: true, message: '新密码不能为空', trigger: 'blur' },
+                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
-                    password: [
-                        { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                        { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+                    password2:[
+                        { required: true, trigger: 'blur', validator: pwdCheckValidate },
+                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ]
                 }
             }

@@ -6,7 +6,9 @@
                     <div style="text-align:center">
                         <h3>{{i.titleName}}</h3>
                         <h4>{{i.detail}}</h4>
-                        <router-link to="/detail">查看详情</router-link>
+                    </div>
+                    <div class="xuanti">
+                        <Button  type="primary" @click="" >确认选题</Button>
                     </div>
                 </Card>
             </li>
@@ -38,5 +40,9 @@
     }
     h4{
         text-align: left;
+        font-family: 华文中宋;
+    }
+    .xuanti{
+        text-align: right;
     }
 </style>
