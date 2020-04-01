@@ -31,10 +31,13 @@
 </template>
 
 <script>
+    import Api from '../../api/index'
     export default {
         name: "sMine",
         data () {
             return {
+                stuinfo:'hello',
+                stu:'',
                 sex:'',
                 formRight: {
                     input1: '',
@@ -45,6 +48,17 @@
                 }
             }
         },
+        /*mounted() {
+            this.stuinfo =  Api.getSmine(this.stu);
+            console.log(this.stuinfo);
+            this.formRight.input1=stuinfo.id;
+            this.formRight.input2=stuinfo.name;
+            this.sex=stuinfo.sex;
+            this.formRight.input3 =stuinfo.class;
+            this.formRight.input4 =stuinfo.phone;
+            this.formRight.input5 =stuinfo.email;
+
+        }*/
         mounted() {
             this.axios.get('/api/student/info').then(res=>{
                 this.formRight.input1=res.data.data.userlist.id;

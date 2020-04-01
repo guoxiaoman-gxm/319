@@ -81,10 +81,10 @@
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //传密码
-                        Api.Schangepwd(this.stuPassword1)
+                        Api.Schangepwd(this.StuInfo.stuPassword1)
                             .then(res=>{
                                 if(res.status==1) {
-                                    this.SET_STUPASSWORD(this.stuPassword1);
+                                    this.SET_STUPASSWORD(this.StuInfo.stuPassword1);
                                     this.$Message.success(res.msg);
                                 }else{
                                     this.$Message.error(res.msg)

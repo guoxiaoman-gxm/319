@@ -5,12 +5,6 @@
                 <Header>
                     <Menu mode="horizontal" theme="dark" active-name="1">
                         <div class="layout-logo">学生选题系统</div>
-                        <div class="layout-nav">
-                            <MenuItem name="1" to="/search">
-                                <br>
-                                <Button shape="circle" icon="ios-search"></Button>
-                            </MenuItem>
-                        </div>
                     </Menu>
                 </Header>
                 <Layout :style="{padding: '0 50px'}">
@@ -30,7 +24,7 @@
                                             <Icon type="ios-keypad" ></Icon>
                                             选题管理
                                         </template>
-                                        <MenuItem name="2-1" to="/student/choose">
+                                        <MenuItem name="2-1" to="/student/search">
                                             开始选题
                                         </MenuItem>
                                         <MenuItem name="2-2" to="/student/haveChoosed">已选题目</MenuItem>

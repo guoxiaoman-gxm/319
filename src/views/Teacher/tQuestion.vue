@@ -4,28 +4,21 @@
             <br>
             <Table border :columns="columns" :data="queList">
                 <template slot-scope="{ row, index }" slot="titleId">
-                    <Input type="text" v-model="editTitleId" v-if="editIndex === index" />
-                    <span v-else>{{ row.titleId }}</span>
+                    <span>{{ row.titleId }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="titleName">
-                    <Input type="text" v-model="editTitleName" v-if="editIndex === index" />
-                    <span v-else>{{ row.titleName }}</span>
+                    <span>{{ row.titleName }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="decribe">
-                    <Input type="text" v-model="editDecribe" v-if="editIndex === index" />
-                    <span v-else>{{ row.decribe }}</span>
+                    <span>{{ row.decribe }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="action">
-                    <div v-if="editIndex === index">
-                        <Button @click="handleSave(index)">保存</Button>
-                        <Button @click="editIndex = -1">取消</Button>
-                    </div>
-                    <div v-else>
+                    <div>
                         <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                        <Button size="small" style="margin-right: 5px" @click="handleEdit(row, index)">修改</Button>
+                        <Button size="small" style="margin-right: 5px" @click="">修改</Button>
                         <Button type="error" size="small" @click="remove(index)">删除</Button>
                     </div>
                 </template>
@@ -72,43 +65,31 @@
                     }
                 ],
                 queList: [],
+                trainId:'',
+                stuId:'',
                 editIndex: -1,  // 当前聚焦的输入框的行数
-                editTitleId: '',  // 第一列输入框，当然聚焦的输入框的输入内容，与 data 分离避免重构的闪烁
-                editTitleName: '',  // 第二列输入框
-                editDecribe: '',  // 第三列输入框
             }
         },
         mounted() {
             this.axios.get('/api/teacher/title').then(res=>{
-                this.queList=res.data.data.questions;
+                this.queList=res.data.questions;
             }).catch(err=>{
                 console.log("error",error)
             })
         },
         methods:{
-            handleEdit (row, index) {
-                this.editTitleId = row.titleId;
-                this.editTitleName = row.titleName;
-                this.editDecribe = row.decribe;
-                this.editIndex = index;
-            },
-            handleSave (index) {
-                this.data[index].titleId = this.editTitleId;
-                this.data[index].titleName = this.editTitleName;
-                this.data[index].decribe = this.editDecribe;
-                this.editIndex = -1;
-            },
             show (index) {
                 this.$Modal.info({
                     title: '题目详情',
-                    content: `题目编号：${this.data[index].titleId}<br>题目名称：${this.data[index].titleName}<br>题目内容：${this.data[index].describe}`
+                    content: `实训编号：${this.queList[index].trainId}<br>
+                               题目编号：${this.queList[index].titleId}<br>
+                               题目名称：${this.queList[index].titleName}<br>
+                               题目内容：${this.queList[index].decribe}<br>
+                               选题学生：${this.queList[index].stuId}<br>`
                 })
             },
             remove (index) {
-                this.data.splice(index, 1);
-            },
-            add (index) {
-                this.data.push(index, 1);
+                this.queList.splice(index, 1);
             }
         }
     }

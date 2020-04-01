@@ -31,11 +31,6 @@ const routes = [
         }],
     },
     {
-        path: '/addQuestion',
-        name: 'addQuestion',
-        component: () => import('../views/Teacher/addQuestion.vue')
-    },
-    {
         path: '/student',
         component: () => import('../views/Student/sHome.vue'),
         children:[
@@ -47,15 +42,15 @@ const routes = [
             },
             //开始选题
             {
-                path: 'choose',
-                name: 'choose',
-                component: () => import('../views/Student/choose.vue'),
+                path: 'search',
+                name: 'search',
+                component: () => import('../views/Student/search.vue'),
             },
-            //申请换题
+            //题目列表
             {
-                path: 'change',
-                name: 'change',
-                component: () => import('../views/Student/change.vue')
+                path: 'queList',
+                name: 'queList',
+                component: () => import('../views/Student/queList.vue')
             },
             //已选题目
             {
@@ -75,6 +70,11 @@ const routes = [
                 component: () => import('../views/Student/squit.vue')
             },
         ]
+    },
+    {
+        path: '/addQuestion',
+        name: 'addQuestion',
+        component: () => import('../views/Teacher/addQuestion.vue')
     },
     {
         path:'/Teacher',

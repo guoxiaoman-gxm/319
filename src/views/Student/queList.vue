@@ -17,7 +17,7 @@
             <template slot-scope="{ row, index }" slot="action" class="buttons">
                 <div>
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                    <Button type="error" size="small" @click="handleChange(index)">换题</Button>
+                    <Button type="error" size="small" @click="handleChoose(index)">选题</Button>
                 </div>
             </template>
         </Table>
@@ -30,7 +30,7 @@
     import Title from '@/components/title/index.vue'
     import Api from '../../api/index'
     export default {
-        name: "tQuestion",
+        name: "queList",
         components:{
             Title
         },
@@ -74,32 +74,29 @@
             })
         },
         methods:{
-           /* handleEdit (row, index) {
-                this.editTitleId = row.titleId;
-                this.editTitleName = row.titleName;
-                this.editDecribe = row.decribe;
-                this.editIndex = index;
-            },
-            handleSave (index) {
-                this.data[index].titleId = this.editTitleId;
-                this.data[index].titleName = this.editTitleName;
-                this.data[index].decribe = this.editDecribe;
-                this.editIndex = -1;
-            },*/
+            /* handleEdit (row, index) {
+                 this.editTitleId = row.titleId;
+                 this.editTitleName = row.titleName;
+                 this.editDecribe = row.decribe;
+                 this.editIndex = index;
+             },
+             handleSave (index) {
+                 this.data[index].titleId = this.editTitleId;
+                 this.data[index].titleName = this.editTitleName;
+                 this.data[index].decribe = this.editDecribe;
+                 this.editIndex = -1;
+             },*/
             show (index) {
                 this.$Modal.info({
                     title: '题目详情',
                     content: `题目编号：${this.queList[index].titleId}<br>题目名称：${this.queList[index].titleName}<br>题目内容：${this.queList[index].decribe}`
                 })
             },
-            handleChange (index) {
+            handleChoose (index) {
                 this.queList.splice(index, 1);
-                console.log(this.queList);
-                console.log(this.queList[index].titleId);
-                Api.change_title(this.queList[index].titleId)
+                Api.choose_title(this.queList[index].titleId)
                     .then(res=>{
                         if(res.status==1) {
-                            this.$router.push('/student/search');
                             this.$Message.success(res.msg);
                         }else{
                             this.$Message.error(res.msg)
