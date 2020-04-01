@@ -95,11 +95,7 @@ const routes = [
         name:'quit',
         component:()=>import('../views/Teacher/Quit')
       },
-      {
-        path:'details',
-        name:'details',
-        component:()=>import('../views/Teacher/queDetail')
-      }
+
     ]
   },
 ]

@@ -28,6 +28,12 @@ const User={
     async TgetVerify(data) {
         return (await axios.post('', data)).data
     },
+    async SCheckCode(data) {
+        return (await axios.post('', data)).data
+    },
+    async TCheckCode(data) {
+        return (await axios.post('', data)).data
+    },
 
 }
 
