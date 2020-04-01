@@ -51,6 +51,9 @@ const Api = {
     async TchangeInfo(data) {
         return (await axios.post('', data)).data;
     },
+    async submit(data){
+        return (await axios.post('',data)).data;
+    }
 }
 
 export default Api;

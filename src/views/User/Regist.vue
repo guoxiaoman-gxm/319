@@ -149,7 +149,7 @@
             ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
             ShandleSubmit(name) {
                 let data = Api.SCheckCode(this.StuInfo.vcode);
-                if(parseInt(data.code) !=0)
+                if(parseInt(data.code) != 0)
                 {
                     window.alert("验证码不正确！请重新输入");
                     return;
