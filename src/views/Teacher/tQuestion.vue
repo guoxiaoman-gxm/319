@@ -3,6 +3,12 @@
         <div>
             <br>
             <Table border :columns="columns" :data="queList">
+                <template slot-scope="{ row, index }" slot="trainId">
+                    <span>{{ row.trainId }}</span>
+                </template>
+                <template slot-scope="{ row, index }" slot="trainName">
+                    <span>{{ row.trainName}}</span>
+                </template>
                 <template slot-scope="{ row, index }" slot="titleId">
                     <span>{{ row.titleId }}</span>
                 </template>
@@ -18,14 +24,13 @@
                 <template slot-scope="{ row, index }" slot="action">
                     <div>
                         <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                        <Button size="small" style="margin-right: 5px" @click="">修改</Button>
+                        <Button size="small" style="margin-right: 5px" @click="edit(index)">修改</Button>
                         <Button type="error" size="small" @click="remove(index)">删除</Button>
                     </div>
                 </template>
             </Table>
         </div>
         <br><br>
-        <Button type="primary" @click="">确认提交</Button>
     </div>
 
 
@@ -33,6 +38,7 @@
 
 <script>
     import Title from '@/components/title/index.vue'
+    import Api from '../../api/index'
     export default {
         name: "tQuestion",
         components:{
@@ -44,6 +50,18 @@
                 value2: '',
                 value3: '',
                 columns: [
+                    {
+                        title: '实训编号',
+                        slot: 'trainId',
+                        width:'100px',
+                        align:'center',
+                    },
+                    {
+                        title: '实训名称',
+                        slot: 'trainName',
+                        width:'100px',
+                        align:'center',
+                    },
                     {
                         title: '题目编号',
                         slot: 'titleId',
@@ -65,7 +83,7 @@
                         title: '操作',
                         slot: 'action',
                         width:'180px',
-                        align:'center', 
+                        align:'center',
                     }
                 ],
                 queList: [],
@@ -87,6 +105,7 @@
                 this.$Modal.info({
                     title: '题目详情',
                     content: `实训编号：${this.queList[index].trainId}<br>
+                               实训题目：${this.queList[index].trainName}<br>
                                题目编号：${this.queList[index].titleId}<br>
                                题目名称：${this.queList[index].titleName}<br>
                                题目内容：${this.queList[index].decribe}<br>
@@ -95,6 +114,15 @@
             },
             remove (index) {
                 this.queList.splice(index, 1);
+                let data = Api.TremoveTitle(this.queList[index].titleId);
+                if(parseInt(data) != 0)
+                {
+                    window.alert("删除失败");
+                }
+                this.$router.push("tQuestion");
+            },
+            edit (index) {
+                this.$router.push({name:"edit",params: { titleId:this.queList[index].titleId , trainId:this.queList[index].trainId }});
             }
         }
     }

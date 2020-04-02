@@ -11,5 +11,17 @@ const Teacher = {
     },
     async submit(data){
         return (await axios.post('',data)).data;
-    }
+    },
+    async TgetVerifyById(data) {
+        return (await axios.post('', data)).data;
+    },
+    async TremoveTitle(data) {
+        return (await axios.post('', data)).data;
+    },
+    async edit(data) {
+        return (await axios.post('', data)).data;
+    },
+    async getTitle(data) {
+        return (await axios.post('', data)).data;
+    },
 }

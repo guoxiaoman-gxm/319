@@ -23,7 +23,7 @@
 </script>
 <style lang="less" scoped>
     @login_color: #ffffff;
-    @head_color :  #003296;
+    @head_color :  #5b6270;
     @shadow_color: #240427;
 
     @ver_dis :2px;

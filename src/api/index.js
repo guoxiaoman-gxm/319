@@ -42,6 +42,9 @@ const Api = {
     async SchangeInfo(data) {
         return (await axios.post('', data)).data;
     },
+    async SgetVerifyById(data) {
+        return (await axios.post('', data)).data;
+    },
 
 
     //老师
@@ -53,7 +56,16 @@ const Api = {
     },
     async submit(data){
         return (await axios.post('',data)).data;
-    }
+    },
+    async TgetVerifyById(data) {
+        return (await axios.post('', data)).data;
+    },
+    async edit(data) {
+        return (await axios.post('', data)).data;
+    },
+    async getTitle(data) {
+        return (await axios.post('', data)).data;
+    },
 }
 
 export default Api;

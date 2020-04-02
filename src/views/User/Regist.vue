@@ -190,12 +190,8 @@
                         Api.Tregist(this.TeacherInfo)
                             .then(res => {
                                 if (res.status == 1) {
-                                    this.SET_TEACHERINFO(this.TeacherInfo);
                                     this.$Message.success(res.msg);
-                                    window.localStorage.setItem(
-                                        "TeacherId",
-                                        this.TeacherInfo.tId
-                                    );
+                                    window.alert("请等待后台验证，验证成功将发送消息至您的邮箱，注意查收。验证通过方可登录！")
                                     this.$router.push({ name: "login" });
                                 } else {
                                     this.$Message.warning(res.msg);

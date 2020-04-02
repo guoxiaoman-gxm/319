@@ -1,55 +1,47 @@
 <template>
-    <div class="sub">
-        <Form ref="Question" :model="Question" :rules="ruleQuestion" :label-width="80" class="form">
-            <FormItem prop="tId" label="教师工号">
-                <Input type="text" v-model="Question.tId" disabled style="width: 220px"></Input>
+    <div class="ed">
+        <Form ref="Edit" :model="Edit" :rules="ruleEdit" :label-width="80" class="form">
+            <FormItem prop="titleId" label="题目编号">
+                <Input type="text" v-model="Edit.titleId" disabled style="width: 220px;"></Input>
             </FormItem>
-            <FormItem prop="trainName" label="实训题目">
-                <Input type="text" v-model="Question.trainName" placeholder="Fill in" style="width: 220px"></Input>
-            </FormItem>
-            <FormItem prop="tDate" label="截止日期">
-                <DatePicker type="date" placeholder="Select date" v-model="Question.tDate" style="width: 220px;"></DatePicker>
+            <FormItem prop="trainId" label="实训编号">
+                <Input type="text" v-model="Edit.trainId" disabled style="width: 220px"></Input>
             </FormItem>
             <FormItem prop="titleName" label="题目名称">
-                <Input type="text" v-model="Question.titleName" placeholder="Fill in" style="width: 220px"></Input>
+                <Input type="text" v-model="Edit.titleName" style="width: 220px;"></Input>
             </FormItem>
             <FormItem prop="decribe" label="题目描述">
-                <Input v-model="Question.decribe" type="textarea" :autosize="{minRows: 3,maxRows:20}" placeholder="Enter something to describe question"></Input>
+                <Input v-model="Edit.decribe" type="textarea" :autosize="{minRows: 3,maxRows:20}" placeholder="Enter something to describe question"></Input>
             </FormItem>
             <ButtonGroup shape="circle" class="footer" size="default">
-                <Button type="primary" @click="handleSubmit('Question')">提交题目</Button>
-                <Button @click="handleReset('Question')">重置</Button>
+                <Button type="primary" @click="handleSubmit('Edit')">提交题目</Button>
+                <Button @click="handleReset('Edit')">重置</Button>
             </ButtonGroup>
         </Form>
+
     </div>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
-    import Api from '../../api/index'
+
+    import Api from "../../api";
+
     export default {
-        name: "submit",
-        computed:{
-          ...mapState(["tId"]),
-        },
-        data () {
-            return {
-                Question:{
-                    tId:'',
-                    trainName:'',//实训名称
-                    tDate:'',//截止选题日期
-                    titleName:'',//题目
-                    decribe:'',//题目描述
+        name: "edit",
+        data(){
+            return{
+                Edit:{
+                    titleId:this.$route.params.titleId,
+                    trainId:'',
+                    titleName:'',
+                    decribe:'',
                 },
-                ruleQuestion:{
-                    tId:[
+                ruleEdit:{
+                    titleId:[
                         { required: true, message: 'The tId cannot be empty', trigger: 'blur' }
                     ],
-                    trainName:[
+                    trainId:[
                         { required: true, message: 'The trainName cannot be empty', trigger: 'blur' }
-                    ],
-                    tDate:[
-                        { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
                     ],
                     titleName:[
                         { required: true, message: 'The titleName cannot be empty', trigger: 'blur' }
@@ -58,14 +50,25 @@
                         { required: true, message: 'The decribe cannot be empty', trigger: 'blur' },
                         { type: 'string', min: 10, message: 'Introduce no less than 10 words', trigger: 'blur' }
                     ],
-                },
+
+                }
+
             }
         },
-        methods: {
+        mounted() {
+            Api.getTitle(this.Edit.titleId).then(res=>{
+                this.Edit.trainId = res.trainId;
+                this.Edit.titleName = res.titleName;
+                this.Edit.decribe = res.decribe;
+            }).catch(err=>{
+                console.log("error",error)
+            })
+        },
+        methods:{
             handleSubmit(name){
                 this.$refs[name].validate(valid=> {
                     if (valid) {
-                        Api.submit(this.Question)
+                        Api.edit(this.Edit)
                             .then(res=>{
                                 if(res.status==1) {
                                     this.$Message.success(res.msg);
@@ -85,12 +88,14 @@
             handleReset (name) {
                 this.$refs[name].resetFields();
             }
-        }
+        },
+
+
     }
 </script>
 
 <style lang="less" scoped>
-    .sub{
+    .ed{
         margin-left: 200px;
         .form {
             width: 460px;

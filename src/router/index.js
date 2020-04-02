@@ -95,7 +95,11 @@ const routes = [
         name:'quit',
         component:()=>import('../views/Teacher/Quit')
       },
-
+      {
+        path:'edit',
+        name:'edit',
+        component:()=>import('../views/Teacher/edit')
+      }
     ]
   },
 ]
