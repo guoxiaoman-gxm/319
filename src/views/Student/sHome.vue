@@ -27,7 +27,12 @@
                                         <MenuItem name="2-1" to="/student/search">
                                             开始选题
                                         </MenuItem>
-                                        <MenuItem name="2-2" to="/student/haveChoosed">已选题目</MenuItem>
+                                        <MenuItem name="2-2" to="/student/haveChoosed">
+                                            已选题目
+                                        </MenuItem>
+                                        <MenuItem name="2-3" to="/student/allTrains">
+                                            所有实训
+                                        </MenuItem>
                                     </Submenu>
                                     <Submenu name="3">
                                         <template slot="title">

@@ -52,6 +52,12 @@ const routes = [
                 name: 'haveChoosed',
                 component: () => import('../views/Student/haveChoosed.vue')
             },
+            //学生查询所有的实训信息
+            {
+                path: 'allTrains',
+                name: 'allTrains',
+                component: () => import('../views/Student/allTrains.vue')
+            },
             //修改密码
             {
                 path: 'changepwd',

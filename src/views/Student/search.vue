@@ -69,14 +69,16 @@
                 console.log("hello");
             }*/
             handleSearch(){
+                //把实训编号传给后台
+                Api.searchTrain(this.search)
+                    .then(res=>{})
+                    .catch(err => {});
+
+                //获取实训列表
                 Api.getTrain()
                     .then(res=>{
                         this.trainList=res.asList;
                     })
-                    .catch(err => {});
-
-                Api.searchTrain(this.search)
-                    .then(res=>{})
                     .catch(err => {});
             },
             show (index) {
