@@ -1,6 +1,6 @@
 <template>
     <div class="quit">
-        <h2>欢迎本次使用系统，是否确认退出？</h2>
+        <h2>欢迎本次使用系统，是够确认退出？</h2>
         <br>
         <Button @click.native="logout" type="primary">确认退出</Button>
     </div>
@@ -26,7 +26,7 @@
 </script>
 
 <style lang="less" scoped>
-    .quit{
-        margin-top: 100px;
-    }
+.quit{
+    margin-top: 100px;
+}
 </style>

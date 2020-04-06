@@ -71,13 +71,9 @@ const routes = [
             },
         ]
     },
+
     {
-        path: '/addQuestion',
-        name: 'addQuestion',
-        component: () => import('../views/Teacher/addQuestion.vue')
-    },
-    {
-        path:'/Teacher',
+        path:'/teacher',
         component: () => import('../views/Teacher/tHome.vue'),
         children:[
             {
@@ -101,12 +97,17 @@ const routes = [
                 component: () => import('../views/Teacher/tChangePwd.vue')
             },
             {
-                path: 'Quit',
-                name: 'Quit',
-                component: () => import('../views/Teacher/Quit.vue')
+                path:'quit',
+                name:'quit',
+                component:()=>import('../views/Teacher/Quit')
+            },
+            {
+                path:'edit',
+                name:'edit',
+                component:()=>import('../views/Teacher/edit')
             }
         ]
-    }
+    },
 ]
 
 const router = new VueRouter({

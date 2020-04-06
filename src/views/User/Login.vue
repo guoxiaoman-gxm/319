@@ -66,7 +66,6 @@
                 StuInfo: {
                     stuId: '',
                     stuPassword: '',
-
                 },
                 TeacherInfo:{
                     tId:'',
@@ -104,7 +103,7 @@
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //登录
-                        Api.Tlogin(this.TeacherInfo)
+                        Api.Tlogin(this.StuInfo)
                             .then(res=>{
                                 if(res.status==1) {
                                     this.$Message.success(res.msg);

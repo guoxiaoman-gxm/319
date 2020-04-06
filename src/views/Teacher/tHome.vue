@@ -5,6 +5,12 @@
                 <Header>
                     <Menu mode="horizontal" theme="dark" active-name="1">
                         <div class="layout-logo">教师选题平台</div>
+                        <div class="layout-nav">
+                            <MenuItem name="1">
+                                <br>
+                                <h3>欢迎使用</h3>
+                            </MenuItem>
+                        </div>
                     </Menu>
                 </Header>
                 <Layout :style="{padding: '0 50px'}">
@@ -37,7 +43,7 @@
                                             设置
                                         </template>
                                         <MenuItem name="3-1" to="/Teacher/tChangePwd">修改密码</MenuItem>
-                                        <MenuItem name="3-2" to="/Teacher/Quit">退出登录</MenuItem>
+                                        <MenuItem name="3-2" to="/Teacher/quit">退出登录</MenuItem>
                                     </Submenu>
                                 </Menu>
                             </Sider>
@@ -47,7 +53,7 @@
                         </Layout>
                     </Content>
                 </Layout>
-                <Footer class="layout-footer-center">2019-2020 &copy; TalkingData</Footer>
+                <Footer class="layout-footer-center">选题系统——教师</Footer>
             </Layout>
         </keep-alive>
     </div>
@@ -78,6 +84,7 @@
         line-height: 22px;
         margin: 0 auto;
         margin-right: 0px;
+        margin-left: 1100px;
     }
     .layout-footer-center{
         text-align: center;

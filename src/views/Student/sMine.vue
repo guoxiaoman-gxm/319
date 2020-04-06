@@ -8,24 +8,23 @@
               :label-width="80"
               inline>
             <FormItem label="学号" prop="stuId">
-                <Input v-model="formRight.input1"></Input>
+                <Input v-model="formRight.stuId"></Input>
             </FormItem>
+            <br>
             <FormItem label="姓名" prop="stuName">
-                <Input v-model="formRight.input2"></Input>
+                <Input v-model="formRight.stuName"></Input>
             </FormItem>
             <br>
             <FormItem label="性别" prop="stuSex">
                 <h4>{{sex}}</h4>
             </FormItem>
+            <br>
             <FormItem label="班级" prop="stuClass">
-                <Input v-model="formRight.input3"></Input>
+                <Input v-model="formRight.stuClass"></Input>
             </FormItem>
             <br>
             <FormItem label="手机号" prop="stuPhone">
-                <Input v-model="formRight.input4"></Input>
-            </FormItem>
-            <FormItem label="账号">
-                <Input v-model="formRight.input5"></Input>
+                <Input v-model="formRight.stuPhone"></Input>
             </FormItem>
             <br>
             <FormItem>
@@ -44,11 +43,10 @@
                 stu:'',
                 sex:'',
                 formRight: {
-                    input1: '',
-                    input2: '',
-                    input3: '',
-                    input4: '',
-                    input5: ''
+                    stuId: '',
+                    stuName: '',
+                    stuClass: '',
+                    stuPhone: '',
                 },
                 stuInfo:{
                     stuId:'',
@@ -71,16 +69,21 @@
 
         }*/
         mounted() {
-            this.axios.get('/api/student/info').then(res=>{
-                this.formRight.input1=res.data.data.userlist.id;
-                this.formRight.input2=res.data.data.userlist.name;
-                this.sex=res.data.data.userlist.sex;
-                this.formRight.input3 =res.data.data.userlist.class;
-                this.formRight.input4 =res.data.data.userlist.phone;
-                this.formRight.input5 =res.data.data.userlist.email;
-            }).catch(err=>{
-                console.log("error",error)
-            })
+            Api.getSmine().then(res=>{
+                this.formRight.stuId=res.data.userlist.id;
+                this.formRight.stuName=res.data.userlist.name;
+                this.sex=res.data.userlist.sex;
+                this.formRight.stuClass =res.data.userlist.class;
+                this.formRight.stuPhone =res.data.userlist.phone;
+                if(res.status==1) {
+                    this.$Message.success(res.msg);
+                }else{
+                    this.$Message.error(res.msg)
+                }
+            }).catch(err => {
+                    this.$Message.error("请求错误或网络错误");
+                });
+
         },
         methods:{
             handleSmine(){

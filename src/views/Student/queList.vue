@@ -66,13 +66,27 @@
                 /*editIndex: -1,*/  // 当前聚焦的输入框的行数
             }
         },
-        mounted() {
+        mounted(){
+          Api.getTitles()
+              .then(res=>{
+                  this.queList=res.data.questions;
+                  if(res.status==1) {
+                      this.$Message.success(res.msg);
+                  }else{
+                      this.$Message.error(res.msg)
+                  }
+              })
+              .catch(err => {
+                  this.$Message.error("请求错误或网络错误");
+              });
+        },
+        /*mounted() {
             this.axios.get('/api/student/title/scan').then(res=>{
                 this.queList=res.data.data.questions;
             }).catch(err=>{
                 console.log("error",error)
             })
-        },
+        },*/
         methods:{
             /* handleEdit (row, index) {
                  this.editTitleId = row.titleId;
@@ -94,7 +108,7 @@
             },
             handleChoose (index) {
                 this.queList.splice(index, 1);
-                Api.choose_title(this.queList[index].titleId)
+                Api.chooseTitle(this.queList[index].titleId)
                     .then(res=>{
                         if(res.status==1) {
                             this.$Message.success(res.msg);

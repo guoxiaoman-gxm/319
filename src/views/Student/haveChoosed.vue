@@ -67,11 +67,16 @@
             }
         },
         mounted() {
-            this.axios.get('/api/student/title/scan').then(res=>{
-                this.queList=res.data.data.questions;
-            }).catch(err=>{
-                console.log("error",error)
-            })
+            Api.getHaveChoosed().then(res=>{
+                this.queList=res.data.questions;
+                if(res.status==1) {
+                    this.$Message.success(res.msg);
+                }else{
+                    this.$Message.error(res.msg)
+                }
+            }).catch(err => {
+                this.$Message.error("请求错误或网络错误");
+            });
         },
         methods:{
            /* handleEdit (row, index) {
@@ -96,7 +101,7 @@
                 this.queList.splice(index, 1);
                 console.log(this.queList);
                 console.log(this.queList[index].titleId);
-                Api.change_title(this.queList[index].titleId)
+                Api.ChangeTitle(this.queList[index].titleId)
                     .then(res=>{
                         if(res.status==1) {
                             this.$router.push('/student/search');

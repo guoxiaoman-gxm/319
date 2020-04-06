@@ -69,12 +69,20 @@
                 console.log("hello");
             }*/
             handleSearch(){
-                this.axios.get('/api/train/search').then(res=>{
-                    this.trainList=res.data.asList;
-                }).catch(err=>{
-                    console.log("error",error)
-                })
-                Api.search_train(this.search)
+                Api.getTrain()
+                    .then(res=>{
+                        this.trainList=res.asList;
+                        if(res.status==1) {
+                            this.$Message.success(res.msg);
+                        }else{
+                            this.$Message.error(res.msg)
+                        }
+                    })
+                    .catch(err => {
+                        this.$Message.error("请求错误或网络错误");
+                    });
+
+                Api.searchTrain(this.search)
                     .then(res=>{
                         if(res.status==1) {
                             this.$Message.success(res.msg);
@@ -93,7 +101,7 @@
                 })
             },
             begin_choose (index) {
-                Api.post_trainId(this.trainList[index].trainId)
+                Api.postTrainId(this.trainList[index].trainId)
                     .then(res=>{
                         if(res.status==1) {
                             this.$Message.success(res.msg);
