@@ -14,11 +14,11 @@
 
         },
         methods:{
-            ...mapMutations(["SET_TEACHERINFO"]),
+            ...mapMutations(["SET_STUINFO"]),
             // 退出登录
             logout() {
                 this.$router.push({ name: "login" });
-                window.localStorage.removeItem("TeacherId");
+                window.localStorage.removeItem("stuId");
                 this.SET_TEACHERINFO(" ");
             }
         },
