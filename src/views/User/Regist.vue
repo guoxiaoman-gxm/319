@@ -158,21 +158,14 @@
                     if (valid) {
                         Api.Sregist(this.StuInfo)
                             .then(res => {
-                                if (res.status == 1) {
-                                    this.SET_STUINFO(this.StuInfo);
-                                    this.$Message.success(res.msg);
-                                    window.localStorage.setItem(
-                                        "StuentId",
-                                        this.StuInfo.stuId
-                                    );
-                                    this.$router.push({ name: "login" });
-                                } else {
-                                    this.$Message.warning(res.msg);
-                                }
+                                this.SET_STUINFO(this.StuInfo);
+                                window.localStorage.setItem(
+                                    "StuentId",
+                                    this.StuInfo.stuId
+                                );
+                                this.$router.push({ name: "login" });
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {});
                     } else {
                         this.$Message.error("格式错误");
                     }
@@ -189,21 +182,14 @@
                     if (valid) {
                         Api.Tregist(this.TeacherInfo)
                             .then(res => {
-                                if (res.status == 1) {
-                                    this.SET_TEACHERINFO(this.TeacherInfo);
-                                    this.$Message.success(res.msg);
-                                    window.localStorage.setItem(
-                                        "TeacherId",
-                                        this.TeacherInfo.tId
-                                    );
-                                    this.$router.push({ name: "login" });
-                                } else {
-                                    this.$Message.warning(res.msg);
-                                }
+                                this.SET_TEACHERINFO(this.TeacherInfo);
+                                window.localStorage.setItem(
+                                    "TeacherId",
+                                    this.TeacherInfo.tId
+                                );
+                                this.$router.push({ name: "login" });
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {});
                     } else {
                         this.$Message.error("格式错误");
                     }
@@ -213,16 +199,8 @@
                 let email = this.StuInfo.stuEmail.trim();
                 if (email) {
                     Api.SgetVerify({ email })
-                        .then(res => {
-                            if (res.status == 1) {
-                                this.$Message.success(res.msg);
-                            } else {
-                                this.$Message.warning(res.msg);
-                            }
-                        })
-                        .catch(err => {
-                            this.$Message.error("请求错误或网络错误");
-                        });
+                        .then(res => {})
+                        .catch(err => {});
                 } else {
                     this.$Message.info("请输入邮箱号");
                 }
@@ -231,16 +209,8 @@
                 let email = this.TeacherInfo.tEmail.trim();
                 if (email) {
                     Api.TgetVerify({ email })
-                        .then(res => {
-                            if (res.status == 1) {
-                                this.$Message.success(res.msg);
-                            } else {
-                                this.$Message.warning(res.msg);
-                            }
-                        })
-                        .catch(err => {
-                            this.$Message.error("请求错误或网络错误");
-                        });
+                        .then(res => {})
+                        .catch(err => {});
                 } else {
                     this.$Message.info("请输入邮箱号");
                 }

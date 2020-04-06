@@ -19,7 +19,7 @@
             logout() {
                 this.$router.push({ name: "login" });
                 window.localStorage.removeItem("stuId");
-                this.SET_TEACHERINFO(" ");
+                this.SET_STUINFO(" ");
             }
         },
     }

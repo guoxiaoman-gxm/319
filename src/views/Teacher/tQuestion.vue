@@ -95,14 +95,7 @@
         mounted() {
            Api.TeacherGetTitle().then(res=>{
                 this.queList=res.questions;
-               if(res.status==1) {
-                   this.$Message.success(res.msg);
-               }else{
-                   this.$Message.error(res.msg)
-               }
-            }).catch(err=>{
-               this.$Message.error("请求错误或网络错误");
-            })
+            }).catch(err=>{            })
         },
         methods:{
             show (index) {

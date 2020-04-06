@@ -60,9 +60,7 @@
                 this.Edit.trainId = res.trainId;
                 this.Edit.titleName = res.titleName;
                 this.Edit.decribe = res.decribe;
-            }).catch(err=>{
-                console.log("error",error)
-            })
+            }).catch(err=>{})
         },
         methods:{
             handleSubmit(name){
@@ -70,16 +68,9 @@
                     if (valid) {
                         Api.edit(this.Edit)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
                                     this.$router.push("tQuestion");
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {});
                     }else{
                         this.$Message.error("数据错误");
                     }

@@ -83,16 +83,9 @@
                         //传密码
                         Api.Schangepwd(this.StuInfo.stuPassword1)
                             .then(res=>{
-                                if(res.status==1) {
                                     this.SET_STUPASSWORD(this.StuInfo.stuPassword1);
-                                    this.$Message.success(res.msg);
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {});
                     }else{
                         this.$Message.error("数据错误");
                     }

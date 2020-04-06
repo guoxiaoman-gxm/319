@@ -70,14 +70,8 @@
           Api.getTitles()
               .then(res=>{
                   this.queList=res.data.questions;
-                  if(res.status==1) {
-                      this.$Message.success(res.msg);
-                  }else{
-                      this.$Message.error(res.msg)
-                  }
               })
               .catch(err => {
-                  this.$Message.error("请求错误或网络错误");
               });
         },
         /*mounted() {
@@ -109,16 +103,8 @@
             handleChoose (index) {
                 this.queList.splice(index, 1);
                 Api.chooseTitle(this.queList[index].titleId)
-                    .then(res=>{
-                        if(res.status==1) {
-                            this.$Message.success(res.msg);
-                        }else{
-                            this.$Message.error(res.msg)
-                        }
-                    })
-                    .catch(err => {
-                        this.$Message.error("请求错误或网络错误");
-                    });
+                    .then(res=>{})
+                    .catch(err => {});
             }/*,
             add (index) {
                 this.data.push(index, 1);

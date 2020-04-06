@@ -2,7 +2,6 @@
     <div class="layout">
         <br>
         <Form ref="stuInfo"
-              :rules="ruleStudentInfo"
               :model="formRight"
               label-position="right"
               :label-width="80"
@@ -75,29 +74,14 @@
                 this.sex=res.data.userlist.sex;
                 this.formRight.stuClass =res.data.userlist.class;
                 this.formRight.stuPhone =res.data.userlist.phone;
-                if(res.status==1) {
-                    this.$Message.success(res.msg);
-                }else{
-                    this.$Message.error(res.msg)
-                }
-            }).catch(err => {
-                    this.$Message.error("请求错误或网络错误");
-                });
+            }).catch(err => {});
 
         },
         methods:{
             handleSmine(){
                 Api.changeSmine(this.stuInfo)
-                    .then(res=>{
-                        if(res.status==1) {
-                            this.$Message.success(res.msg);
-                        }else{
-                            this.$Message.error(res.msg)
-                        }
-                    })
-                    .catch(err => {
-                        this.$Message.error("请求错误或网络错误");
-                    });
+                    .then(res=>{})
+                    .catch(err => {});
             }
         }
     }

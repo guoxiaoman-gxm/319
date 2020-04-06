@@ -72,27 +72,12 @@
                 Api.getTrain()
                     .then(res=>{
                         this.trainList=res.asList;
-                        if(res.status==1) {
-                            this.$Message.success(res.msg);
-                        }else{
-                            this.$Message.error(res.msg)
-                        }
                     })
-                    .catch(err => {
-                        this.$Message.error("请求错误或网络错误");
-                    });
+                    .catch(err => {});
 
                 Api.searchTrain(this.search)
-                    .then(res=>{
-                        if(res.status==1) {
-                            this.$Message.success(res.msg);
-                        }else{
-                            this.$Message.error(res.msg)
-                        }
-                    })
-                    .catch(err => {
-                        this.$Message.error("请求错误或网络错误");
-                    });
+                    .then(res=>{})
+                    .catch(err => {});
             },
             show (index) {
                 this.$Modal.info({
@@ -103,16 +88,9 @@
             begin_choose (index) {
                 Api.postTrainId(this.trainList[index].trainId)
                     .then(res=>{
-                        if(res.status==1) {
-                            this.$Message.success(res.msg);
-                        }else{
-                            this.$Message.error(res.msg)
-                        }
+                        this.$router.push('/student/queList');
                     })
-                    .catch(err => {
-                        this.$Message.error("请求错误或网络错误");
-                    });
-                this.$router.push('/student/queList');
+                    .catch(err => {});
             }
         },
 

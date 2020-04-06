@@ -21,14 +21,8 @@ const routes = [
             meta: {
                 notLogin: true
             }
-        }, {
-            path: 'updatePass',
-            name: 'updatePass',
-            component: () => import("../views/User/UpdatePass"),
-            meta: {
-                notLogin: true
-            }
-        }],
+        },
+        ],
     },
     {
         path: '/student',

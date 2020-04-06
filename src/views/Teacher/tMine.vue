@@ -73,16 +73,9 @@ export default {
                         //改变信息提交
                         Api.TchangeInfo(this.TeacherInfo)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
-                                    this.CHANGE_TEACHERINFO(this.TeacherInfo);
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
+                                this.CHANGE_TEACHERINFO(this.TeacherInfo);
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {});
                     }else{
                         this.$Message.error("数据错误");
                     }
