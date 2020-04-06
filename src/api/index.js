@@ -30,11 +30,13 @@ const Api = {
     },
 
 
-    //学生
-
     //得到学生信息
     async getSmine(data) {
         return (await axios.get('/api/student/info'),data).data
+    },
+    //修改学生个人信息
+    async changeSmine(data) {
+        return (await axios.post('/api/student/info/save'),data).data
     },
     //修改密码
     async Schangepwd(data) {
@@ -48,9 +50,13 @@ const Api = {
     async get_train(){
         return (await axios.get('api/title/search')).data;
     },
+    //进入题目列表详情页
+    async post_trainId(data){
+        return (await axios.post(''),data).data;
+    },
     //开始选题
-    async choose_title(){
-        return (await axios.post('')).data;
+    async choose_title(data){
+        return (await axios.post(''),data).data;
     },
     //申请换题（删除当前题目）
     async change_title(data) {

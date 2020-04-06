@@ -4,21 +4,28 @@
             <br>
             <Table border :columns="columns" :data="queList">
                 <template slot-scope="{ row, index }" slot="titleId">
-                    <span>{{ row.titleId }}</span>
+                    <Input type="text" v-model="editTitleId" v-if="editIndex === index" />
+                    <span v-else>{{ row.titleId }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="titleName">
-                    <span>{{ row.titleName }}</span>
+                    <Input type="text" v-model="editTitleName" v-if="editIndex === index" />
+                    <span v-else>{{ row.titleName }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="decribe">
-                    <span>{{ row.decribe }}</span>
+                    <Input type="text" v-model="editDecribe" v-if="editIndex === index" />
+                    <span v-else>{{ row.decribe }}</span>
                 </template>
 
                 <template slot-scope="{ row, index }" slot="action">
-                    <div>
+                    <div v-if="editIndex === index">
+                        <Button @click="handleSave(index)">保存</Button>
+                        <Button @click="editIndex = -1">取消</Button>
+                    </div>
+                    <div v-else>
                         <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                        <Button size="small" style="margin-right: 5px" @click="">修改</Button>
+                        <Button size="small" style="margin-right: 5px" @click="handleEdit(row, index)">修改</Button>
                         <Button type="error" size="small" @click="remove(index)">删除</Button>
                     </div>
                 </template>
@@ -68,6 +75,9 @@
                 trainId:'',
                 stuId:'',
                 editIndex: -1,  // 当前聚焦的输入框的行数
+                editTitleId: '',  // 第一列输入框，当然聚焦的输入框的输入内容，与 data 分离避免重构的闪烁
+                editTitleName: '',  // 第二列输入框
+                editDecribe: '',  // 第三列输入框
             }
         },
         mounted() {
@@ -78,6 +88,18 @@
             })
         },
         methods:{
+            handleEdit (row, index) {
+                this.editTitleId = row.titleId;
+                this.editTitleName = row.titleName;
+                this.editDecribe = row.decribe;
+                this.editIndex = index;
+            },
+            handleSave (index) {
+                this.queList[index].titleId = this.editTitleId;
+                this.queList[index].titleName = this.editTitleName;
+                this.queList[index].decribe = this.editDecribe;
+                this.editIndex = -1;
+            },
             show (index) {
                 this.$Modal.info({
                     title: '题目详情',
