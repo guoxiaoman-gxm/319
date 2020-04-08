@@ -5,9 +5,6 @@
                 <Header>
                     <Menu mode="horizontal" theme="dark" active-name="1">
                         <div class="layout-logo">学生选题系统</div>
-                        <div class="layout-nav">
-
-                        </div>
                     </Menu>
                 </Header>
                 <Layout :style="{padding: '0 50px'}">
@@ -20,25 +17,30 @@
                                             <Icon type="ios-analytics"></Icon>
                                             个人信息
                                         </template>
-                                        <MenuItem name="1-1" to="/sMine">个人信息</MenuItem>
+                                        <MenuItem name="1-1" to="/student/sMine">个人信息</MenuItem>
                                     </Submenu>
                                     <Submenu name="2">
                                         <template slot="title">
                                             <Icon type="ios-keypad" ></Icon>
                                             选题管理
                                         </template>
-                                        <MenuItem name="2-1" to="/choose">
+                                        <MenuItem name="2-1" to="/student/search">
                                             开始选题
                                         </MenuItem>
-                                        <MenuItem name="2-2" to="/haveChoosed">已选题目</MenuItem>
+                                        <MenuItem name="2-2" to="/student/haveChoosed">
+                                            已选题目
+                                        </MenuItem>
+                                        <MenuItem name="2-3" to="/student/allTrains">
+                                            所有实训
+                                        </MenuItem>
                                     </Submenu>
                                     <Submenu name="3">
                                         <template slot="title">
                                             <Icon type="ios-analytics"></Icon>
                                             设置
                                         </template>
-                                        <MenuItem name="3-1" to="/changepwd">修改密码</MenuItem>
-                                        <MenuItem name="3-2" to="/squit">退出登录</MenuItem>
+                                        <MenuItem name="3-1" to="/student/changepwd">修改密码</MenuItem>
+                                        <MenuItem name="3-2" to="/student/squit">退出登录</MenuItem>
                                     </Submenu>
                                 </Menu>
                             </Sider>
@@ -86,6 +88,7 @@
 </style>
 
 <script>
+
     export default {
 
     }

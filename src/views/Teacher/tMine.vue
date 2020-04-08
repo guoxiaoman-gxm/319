@@ -45,9 +45,9 @@ export default {
         data () {
             return {
                 TeacherInfo:{
-                    tId:'',
-                    tName:'',
-                    tCollege:'',
+                    tId:this.$store.state.tId,
+                    tName:this.$store.state.tName,
+                    tCollege:this.$store.state.tCollege,
                 },
                 ruleTeacherInfo:{
                     tId:[
@@ -62,9 +62,7 @@ export default {
                 }
             }
         },
-        computed:{
-            ...mapState([""]),
-        },
+
         methods:{
             ...mapMutations(["CHANGE_TEACHERINFO"]),
             handleSubmit(name) {
@@ -73,16 +71,11 @@ export default {
                         //改变信息提交
                         Api.TchangeInfo(this.TeacherInfo)
                             .then(res=>{
-                                if(res.status==1) {
                                     this.$Message.success(res.msg);
                                     this.CHANGE_TEACHERINFO(this.TeacherInfo);
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
+
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {    });
                     }else{
                         this.$Message.error("数据错误");
                     }

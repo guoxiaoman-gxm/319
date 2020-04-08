@@ -42,13 +42,13 @@ export default new Vuex.Store({
     {
       state.TPassword = tPassword
     },
-    CHANGE_STUINFO(state,student)
+    CHANGE_STUINFO(state,StuInfo)
     {
       state.stuName = StuInfo.stuName,
       state.stuSex = StuInfo.stuSex,
       state.stuPhone = StuInfo.stuPhone;
     },
-    CHANGE_TEACHERINFO(state,teacher)
+    CHANGE_TEACHERINFO(state,TeacherInfo)
     {
       state.tName = TeacherInfo.tName;
       state.tCollege = TeacherInfo.tCollege;

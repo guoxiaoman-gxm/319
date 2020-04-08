@@ -17,9 +17,9 @@
             ...mapMutations(["SET_TEACHERINFO"]),
             // 退出登录
             logout() {
-                this.$router.push({ name: "login" });
                 window.localStorage.removeItem("TeacherId");
                 this.SET_TEACHERINFO(" ");
+                this.$router.push({ name: "login" });
             }
         },
     }

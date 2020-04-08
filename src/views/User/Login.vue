@@ -99,75 +99,52 @@
         },
         methods:{
             ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
-
+            //提交学生信息
             StudentHandleSubmit(name) {
                 this.$refs[name].validate(valid=> {
                     if(valid) {
-                        //登录
-                        Api.Tlogin(this.StuInfo)
+                        //提交登录信息
+                        Api.Slogin(this.StuInfo)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
-                                    window.localStorage.setItem(
-                                        "StudentId",
-                                        this.StuInfo.stuId
-                                    );
-                                    Api.getStudent().then(StuInfo => {
-                                        if (StuInfo.status == 1) {
-                                            this.SET_STUINFO(this.StuInfo);
-                                            this.$Message.success(StuInfo.msg);
-                                            this.$router.push({name:" "});
-                                        }else{
-                                            this.$Message.error(StuInfo.msg);
-                                        }
-                                    });
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
+                                window.localStorage.setItem(
+                                    "StudentId",
+                                    this.StuInfo.stuId
+                                );
+                                //查询是否有此学生信息，若有并设置全局变量
+                                Api.getSmine().then(StuInfo => {
+                                    this.SET_STUINFO(this.StuInfo);
+                                    this.$router.push({name:"Student"});
+                                });
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => { });
                     }else{
                         this.$Message.error("数据错误");
                     }
                 });
-
             },
+            //提交老师登录信息
             TeacherHandleSubmit(name) {
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //登录
                         Api.Tlogin(this.TeacherInfo)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
-                                    window.localStorage.setItem(
-                                       "TeacherId",
-                                       this.TeacherInfo.tId
-                                    );
-                                    Api.getTeacher().then(TeacherInfo => {
-                                        if (TeacherInfo.status == 1) {
-                                            this.SET_TEACHERINFO(this.TeacherInfo);
-                                            this.$Message.success(TeacherInfo.msg);
-                                            this.$router.push({name:""});
-                                        }else{
-                                            this.$Message.error(TeacherInfo.msg);
-                                        }
-                                    });
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
+                                window.localStorage.setItem(
+                                    "TeacherId",
+                                    this.TeacherInfo.tId
+                                );
+                                Api.getTeacher().then(TeacherInfo => {
+                                    this.SET_TEACHERINFO(this.TeacherInfo);
+                                    this.$router.push({name:"teacher"});
+                                });
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {   });
                     }else{
                         this.$Message.error("数据错误");
                     }
                 });
             },
-
+            //重置清除所有框
             handleReset:function (name) {
                 this.$refs[name].resetFields();
             },

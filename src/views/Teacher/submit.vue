@@ -29,13 +29,11 @@
     import Api from '../../api/index'
     export default {
         name: "submit",
-        computed:{
-          ...mapState(["tId"]),
-        },
+
         data () {
             return {
                 Question:{
-                    tId:'',
+                    tId:this.$store.state.tId,
                     trainName:'',//实训名称
                     tDate:'',//截止选题日期
                     titleName:'',//题目
@@ -67,16 +65,9 @@
                     if (valid) {
                         Api.submit(this.Question)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
                                     this.$router.push("tQuestion");
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {  });
                     }else{
                         this.$Message.error("数据错误");
                     }

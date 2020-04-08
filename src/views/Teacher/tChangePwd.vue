@@ -1,21 +1,24 @@
 <template>
     <div class="form">
         <Form ref="TeacherInfo" :model="TeacherInfo" :rules="rulesTeacherInfo" :label-width="80">
+            <FormItem label="教师工号">
+                <Input type="text" v-model="TeacherInfo.tId" disabled style="width: 220px"></Input>
+            </FormItem>
+            <FormItem label="邮箱号" prop="tEmail">
+                <Input v-model="TeacherInfo.tEmail" type="text"  placeholder="your email" style="width: 220px" />
+            </FormItem>
             <FormItem label="原密码" prop="tPassword">
                 <Input v-model="TeacherInfo.tPassword" type="password" password placeholder="password" style="width: 220px" />
             </FormItem>
-            <br>
             <FormItem label="新密码" prop="tPassword1">
                 <Input v-model="TeacherInfo.tPassword1" type="password" password placeholder="newpassword" style="width: 220px" />
             </FormItem>
-            <br>
             <FormItem label="重复密码" prop="tPassword2">
                 <Input v-model="TeacherInfo.tPassword2" type="password" password  placeholder="renewpassword" style="width: 220px"/>
             </FormItem>
-            <br>
             <FormItem label="验证码" prop="tVcode">
                 <Input type="text" placeholder="验证码" v-model="TeacherInfo.tVcode" style="width: 120px"></Input>
-                <Button type="primary" @click="ThandleVerify" style="margin-right: 0px">获取验证码</Button>
+                <Button type="primary" @click="HandleVerify" style="margin-right: 0px">获取验证码</Button>
             </FormItem>
             <br>
             <ButtonGroup shape="circle" class="footer" size="default">
@@ -45,26 +48,23 @@
                     callback();
                 }
             };
-            const checkbeforePassword=(rule,value,callback) => {
-                let vm = this;
-                if(value==''){
-                    return callback(new Error('原密码不能为空'));
-                }else if(value != this.TPassword){
-                    return callback(new Error('与原密码不一致'));
-                }else{
-                    callback();
-                }
-            };
+
             return {
                 TeacherInfo: {
+                    tId:this.$store.state.tId,
+                    tEmail:'',
                     tPassword:'',
                     tPassword1:'',
                     tPassword2:'',
                     tVcode:'',
                 },
                 rulesTeacherInfo: {
+                    tEmail: [
+                            { required: true, message: 'Please Fill in', trigger: 'blur' },
+                            { type: 'email', message: 'Uncorrect', trigger: 'blur' }
+                    ],
                     tPassword:[
-                        { validator: checkbeforePassword, trigger: 'blur', required: true },
+                        {  required: true, message: 'Please Fill in', trigger: 'blur'  },
                     ],
                     tPassword1:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
@@ -87,46 +87,43 @@
                 this.$refs[name].resetFields();
             },
 
-            ThandleVerify() {
-                let id = this.TeacherInfo.tVcode.trim();
-                if (id) {
-                    Api.TgetVerifyById({ id })
+            HandleVerify() {
+                let email = this.TeacherInfo.tEmail.trim();
+                if (email) {
+                    Api.getVerify({ email })
                         .then(res => {
-                            if (res.status == 1) {
-                                this.$Message.success(res.msg);
-                            } else {
-                                this.$Message.warning(res.msg);
-                            }
+
                         })
-                        .catch(err => {
-                            this.$Message.error("请求错误或网络错误");
-                        });
+                        .catch(err => {    });
                 } else {
                     this.$Message.info("请输入邮箱号");
                 }
             },
 
             handleSubmit(name) {
-                let data = Api.TCheckCode(this.StuInfo.scode);
-                if(parseInt(data.code) !=0)
+                //判断原密码是否正确
+                let pwd = Api.checkPasssword(this.TeacherInfo.tPassword);
+                if(parseInt(pwd) != 1)
                 {
-                    window.alert("验证码不正确！请重新输入");
+                    this.$Message.error("原密码不正确！请重新输入");
+                    return;
+                }
+                //判断验证码是否正确
+                let data = Api.CheckCode(this.TeacherInfo.tVcode);
+                if(parseInt(data.code) !=1)
+                {
+                    this.$Message.error("验证码不正确！请重新输入");
                     return;
                 }
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //传密码
-                        Api.Tchangepwd(this.TeacherInfo.tPassword1)
+                        Api.Tchangepwd(this.TeacherInfo)
                             .then(res=>{
-                                if(res.status==1) {
                                     this.SET_TPASSWORD(this.TeacherInfo.tPassword1);
-                                    this.$Message.success(res.msg);
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
                             })
                             .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
+
                             });
                     }else{
                         this.$Message.error("数据错误");

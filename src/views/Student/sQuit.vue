@@ -9,7 +9,7 @@
 <script>
     import {mapState,mapMutations} from 'vuex'
     export default {
-        name: "sQuit",
+        name: "squit",
         computed:{
 
         },
@@ -18,14 +18,14 @@
             // 退出登录
             logout() {
                 this.$router.push({ name: "login" });
-                window.localStorage.removeItem("StuentId");
-                this.SET_TEACHERINFO(" ");
+                window.localStorage.removeItem("stuId");
+                this.SET_STUINFO(" ");
             }
         },
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
     .quit{
         margin-top: 100px;
     }

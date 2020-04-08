@@ -22,14 +22,8 @@ const routes = [
       meta: {
         notLogin: true
       }
-    }, {
-      path: 'updatePass',
-      name: 'updatePass',
-      component: () => import("../views/User/UpdatePass"),
-      meta: {
-        notLogin: true
-      }
-    }],
+    }
+    ],
   },
   {
     path: '/student',
@@ -37,32 +31,44 @@ const routes = [
     children:[
       //个人信息
       {
-        path: '/sMine',
+        path: 'sMine',
         name: 'sMine',
         component: () => import('../views/Student/sMine.vue')
       },
       //开始选题
       {
-        path: '/choose',
-        name: 'choose',
-        component: () => import('../views/Student/choose.vue'),
+        path: 'search',
+        name: 'search',
+        component: () => import('../views/Student/search.vue'),
+      },
+      //题目列表
+      {
+        path: 'queList',
+        name: 'queList',
+        component: () => import('../views/Student/queList.vue')
       },
       //已选题目
       {
-        path: '/haveChoosed',
+        path: 'haveChoosed',
         name: 'haveChoosed',
         component: () => import('../views/Student/haveChoosed.vue')
       },
+      //学生查询所有的实训信息
+      {
+        path: 'allTrains',
+        name: 'allTrains',
+        component: () => import('../views/Student/allTrains.vue')
+      },
       //修改密码
       {
-        path: '/changepwd',
+        path: 'changepwd',
         name: 'changepwd',
         component: () => import('../views/Student/changepwd.vue')
       },
       {
-        path:'/squit',
-        name:'squit',
-        component:()=>import('../views/Student/sQuit')
+        path: 'squit',
+        name: 'squit',
+        component: () => import('../views/Student/squit')
       },
     ]
   },

@@ -93,12 +93,9 @@
             }
         },
         mounted() {
-            this.axios.get('/api/teacher/title').then(res=>{
-                console.log(res.data.questions);
-                this.queList=res.data.questions;
-            }).catch(err=>{
-                console.log("error",error)
-            })
+            Api.TeacherGetTitle().then(res=>{
+                this.queList=res.titleList;
+            }).catch(err=>{            })
         },
         methods:{
             show (index) {
@@ -112,15 +109,15 @@
                                选题学生：${this.queList[index].stuId}<br>`
                 })
             },
+
             remove (index) {
                 this.queList.splice(index, 1);
-                let data = Api.TremoveTitle(this.queList[index].titleId);
-                if(parseInt(data) != 0)
-                {
-                    window.alert("删除失败");
-                }
-                this.$router.push("tQuestion");
+                Api.removeTitle(this.queList[index].titleId)
+                 .then(res=>{
+                     this.$router.push("tQuestion");
+                 })
             },
+
             edit (index) {
                 this.$router.push({name:"edit",params: { titleId:this.queList[index].titleId , trainId:this.queList[index].trainId }});
             }

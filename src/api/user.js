@@ -3,35 +3,28 @@ import axios from 'axios'
 axios.defaults.withCreadentials = true;
 
 const User={
-    //获取用户登录信息
-    async getStudent(){
-        return (await axios.get('')).data;
-    },
+    //提交用户登录信息
     async Slogin(data) {
-        return (await axios.post('', data)).data;
+        return (await axios.post('/student/login', data)).data;
     },
+    //获取教师信息
     async getTeacher(){
-        return (await axios.get('')).data;
+        return (await axios.get('/teacher/info/get')).data;
     },
+    //教师登录信息
     async Tlogin(data) {
-        return (await axios.post('', data)).data;
+        return (await axios.post('/teacher/login', data)).data;
     },
+    //学生注册提交信息
     async Sregist(data) {
-        return (await axios.post('', data)).data
+        return (await axios.post('/student/registered', data)).data
     },
-    async SgetVerify(data) {
-        return (await axios.post('', data)).data
+    //老师或学生传递邮箱获取验证码
+    async getVerify(data) {
+        return (await axios.post('/mail/send', data)).data
     },
-    async Tregist(data) {
-        return (await axios.post('', data)).data
-    },
-    async TgetVerify(data) {
-        return (await axios.post('', data)).data
-    },
-    async SCheckCode(data) {
-        return (await axios.post('', data)).data
-    },
-    async TCheckCode(data) {
+    //检查验证码是否正确
+    async CheckCode(data) {
         return (await axios.post('', data)).data
     },
 

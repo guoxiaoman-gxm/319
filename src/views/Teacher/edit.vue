@@ -56,6 +56,7 @@
             }
         },
         mounted() {
+            //获取题目信息
             Api.getTitle(this.Edit.titleId).then(res=>{
                 this.Edit.trainId = res.trainId;
                 this.Edit.titleName = res.titleName;
@@ -70,16 +71,9 @@
                     if (valid) {
                         Api.edit(this.Edit)
                             .then(res=>{
-                                if(res.status==1) {
-                                    this.$Message.success(res.msg);
                                     this.$router.push("tQuestion");
-                                }else{
-                                    this.$Message.error(res.msg)
-                                }
                             })
-                            .catch(err => {
-                                this.$Message.error("请求错误或网络错误");
-                            });
+                            .catch(err => {   });
                     }else{
                         this.$Message.error("数据错误");
                     }
