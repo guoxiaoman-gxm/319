@@ -19,7 +19,7 @@ const service = axios.create({
 //响应拦截器
 service.interceptors.response.use(
     response=>{
-        if (response.status===1){
+        if (response.codes===1){
             return Promise.resolve(response);
         }
         else{
@@ -27,8 +27,8 @@ service.interceptors.response.use(
         }
     },
     error => {
-        if(error.response.status){
-            switch (error.response.status) {
+        if(error.response.codes){
+            switch (error.response.codes) {
                 case 0:
                     vant.Toast.fail("请求错误或网络错误");
                     break;
