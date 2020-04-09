@@ -2,58 +2,76 @@
     <div class="layout">
         <br>
         <Form ref="stuInfo"
-              :model="formRight"
+              :model="stuInfo"
+              :rules="ruleStudentInfo"
               label-position="right"
               :label-width="80"
-              inline>
+              class="form"
+        >
+            <br>
             <FormItem label="学号" prop="stuId">
-                <Input v-model="formRight.stuId"></Input>
+                <Input v-model="stuInfo.stuId" disabled>
+                    <Icon type="md-bowtie" slot="prepend"/>
+                </Input>
             </FormItem>
-            <br>
             <FormItem label="姓名" prop="stuName">
-                <Input v-model="formRight.stuName"></Input>
+                <Input v-model="stuInfo.stuName">
+                    <Icon type="ios-person" slot="prepend"/>
+                </Input>
             </FormItem>
-            <br>
             <FormItem label="性别" prop="stuSex">
-                <h4>{{sex}}</h4>
+                <Input v-model="stuInfo.stuSex">
+                    <Icon type="md-woman" slot="prepend"/>
+                </Input>
             </FormItem>
-            <br>
             <FormItem label="班级" prop="stuClass">
-                <Input v-model="formRight.stuClass"></Input>
+                <Input v-model="stuInfo.stuClass">
+                    <Icon type="ios-school" slot="prepend"/>
+                </Input>
             </FormItem>
-            <br>
             <FormItem label="手机号" prop="stuPhone">
-                <Input v-model="formRight.stuPhone"></Input>
+                <Input v-model="stuInfo.stuPhone">
+                    <Icon type="md-apps" slot="prepend"/>
+                </Input>
             </FormItem>
-            <br>
             <FormItem>
-                <Button type="primary" @click="handleSmine()">提交修改</Button>
+                <Button type="primary" @click="handleSmine(stuInfo)">提交修改</Button>
             </FormItem>
         </Form>
     </div>
 </template>
 
 <script>
-    import Api from '../../api/index'
+    import Api from '../../api/index';
+    import {mapState,mapMutations} from 'vuex'
     export default {
         name: "sMine",
         data () {
             return {
-                stu:'',
-                sex:'',
-                formRight: {
-                    stuId: '',
-                    stuName: '',
-                    stuClass: '',
-                    stuPhone: '',
-                },
                 stuInfo:{
-                    stuId:'',
-                    stuName:'',
-                    stuSex:'',
-                    stuClass: '',
-                    stuPhone:''
+                    stuId:this.$store.state.stuId,
+                    stuName:this.$store.state.stuName,
+                    stuSex:this.$store.state.stuSex,
+                    stuClass: this.$store.state.stuClass,
+                    stuPhone:this.$store.state.stuPhone
                 },
+                ruleStudentInfo:{
+                    stuId:[
+                        { required: true, message: '不能更改', trigger: 'blur' }
+                    ],
+                    stuName:[
+                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                    ],
+                    stuSex:[
+                        { required: true, message: '不能更改', trigger: 'blur' }
+                    ],
+                    stuClass:[
+                        { required: true, message: '请输入班级', trigger: 'blur' }
+                    ],
+                    stuPhone:[
+                        { required: true, message: '请输入手机号', trigger: 'blur' }
+                    ],
+                }
             }
         },
         /*mounted() {
@@ -69,27 +87,44 @@
         }*/
         mounted() {
             Api.getSmine().then(res=>{
-                this.formRight.stuId=res.data.userlist.id;
-                this.formRight.stuName=res.data.userlist.name;
-                this.sex=res.data.userlist.sex;
-                this.formRight.stuClass =res.data.userlist.class;
-                this.formRight.stuPhone =res.data.userlist.phone;
+                this.formRight.stuId=res.data.stuInfoEntity.id;
+                this.formRight.stuName=res.data.stuInfoEntity.name;
+                this.formRight.stuSex=res.data.stuInfoEntity.stuSex;
+                this.formRight.stuClass =res.data.stuInfoEntity.class;
+                this.formRight.stuPhone =res.data.stuInfoEntity.phone;
             }).catch(err => {});
-
         },
         methods:{
-            handleSmine(){
-                Api.changeSmine(this.stuInfo)
-                    .then(res=>{})
-                    .catch(err => {});
-            }
+            ...mapMutations(["CHANGE_STUDENTINFO"]),
+            handleSmine(name) {
+                this.$refs[name].validate(valid=> {
+                    if(valid) {
+                        //改变信息提交
+                        Api.changeSmine(this.stuInfo)
+                            .then(res=>{
+                                this.$Message.success(res.msg);
+                                this.CHANGE_STUDENTINFO(this.stuInfo);
+                            })
+                            .catch(err => {    });
+                    }else{
+                        this.$Message.error("数据错误");
+                    }
+                });
+            },
         }
     }
 </script>
 
-<style scoped>
+<style lang="less"scoped>
     .layout{
-        background-color: #ffffff;
+        background-color: white;
         align-items: center;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+
+        .form{
+            background-color: white;
+        }
     }
 </style>

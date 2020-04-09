@@ -6,7 +6,8 @@ import axiosInit from './api/axiosInit'
 import store from './store'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
-
+/*import {Toast} from 'vant'
+Vue.use(Toast)*/
 
 Vue.use(router)
 Vue.use(ViewUI)

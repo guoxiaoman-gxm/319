@@ -58,6 +58,12 @@ const routes = [
                 name: 'allTrains',
                 component: () => import('../views/Student/allTrains.vue')
             },
+            //所有题目信息
+            {
+                path: 'allTitleList',
+                name: 'allTitleList',
+                component: () => import('../views/Student/allTitleList.vue')
+            },
             //修改密码
             {
                 path: 'changepwd',

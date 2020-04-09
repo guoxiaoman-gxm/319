@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Table border :columns="columns" :data="trainList">
+        <Table border :columns="columns" :data="allTrainList">
             <template slot-scope="{ row, index }" slot="trainId">
                 <span>{{ row.trainId }}</span>
             </template>
@@ -16,7 +16,7 @@
             <template slot-scope="{ row, index }" slot="action">
                 <div>
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                    <Button type="error" size="small" @click="begin_choose(index)">开始选题</Button>
+                    <Button type="error" size="small" @click="handleViewTitles(index)">查看题目</Button>
                 </div>
             </template>
         </Table>
@@ -29,7 +29,7 @@
         name: "allTrains",
         data(){
             return{
-                trainList:[],
+                allTrainList:[],
                 columns: [
                     {
                         title: '实训编号',
@@ -57,9 +57,18 @@
         mounted() {
             Api.getAllTrains()
                 .then(res=>{
-                    this.trainList=res.asList;
+                    this.allTrainList=res.list;
                 })
                 .catch(err => {});
+        },
+        methods:{
+            handleViewTitles (index) {
+                Api.postTrainId(this.allTrainList[index].trainId)
+                    .then(res=>{
+                        this.$router.push('/student/allTitleList');
+                    })
+                    .catch(err => {});
+            }
         }
     }
 </script>

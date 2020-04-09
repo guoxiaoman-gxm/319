@@ -17,40 +17,19 @@
                     </FormItem>
                     <FormItem label="验证码" prop="vcode">
                         <Input type="text" placeholder="验证码" v-model="StuInfo.vcode" style="width: 120px"></Input>
-                        <Button type="primary" @click="ShandleVerify" style="margin-right: 0px">获取验证码</Button>
+                        <Button type="primary" @click="HandleVerify" style="margin-right: 0px">获取验证码</Button>
                     </FormItem>
                     <ButtonGroup shape="circle" class="footer" size="default">
-                        <Button type="primary" @click="ShandleSubmit('StuInfo')">提交</Button>
+                        <Button type="primary" @click="StudentHandleSubmit('StuInfo')">提交</Button>
                         <Button @click="handleReset('StuInfo')">重置</Button>
                     </ButtonGroup>
                 </Form>
+            </TabPane >
 
-            </TabPane>
             <TabPane label="教师注册" name="Teacher" icon="ios-person">
-                <Form ref="TeacherInfo" :model="TeacherInfo" :rules="rulesTeacherInfo" :label-width="80">
-                    <FormItem label="工号" prop="tId">
-                        <Input v-model="TeacherInfo.tId" placeholder="Teacher Id" style="width: 220px" ></Input>
-                    </FormItem>
-                    <FormItem label="邮箱账号" prop="tEmail">
-                        <Input v-model="TeacherInfo.tEmail" placeholder="Enter your e-mail" style="width: 220px" ></Input>
-                    </FormItem>
-                    <FormItem label="密 码" prop="tPassword">
-                        <Input v-model="TeacherInfo.tPassword" type="password" password placeholder="password" style="width: 220px" />
-                    </FormItem>
-                    <FormItem label="重复密码" prop="tPassword2">
-                        <Input v-model="TeacherInfo.tPassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
-                    </FormItem>
-                    <FormItem label="验证码" prop="tVcode">
-                        <Input type="text" placeholder="验证码" v-model="TeacherInfo.tVcode" style="width: 120px"></Input>
-                        <Button type="primary" @click="ThandleVerify" style="margin-right: 0px">获取验证码</Button>
-                    </FormItem>
-                    <ButtonGroup shape="circle" class="footer" size="default">
-                        <Button type="primary" @click="ThandleSubmit('TeacherInfo')">提交</Button>
-                        <Button @click="handleReset('TeacherInfo')">重置</Button>
-                    </ButtonGroup>
-                </Form>
-
+                <p>教师无法自行注册，请向管理员申请帮助！！！</p>
             </TabPane>
+
         </Tabs>
     </div>
 </template>
@@ -71,16 +50,7 @@
                     callback();
                 }
             };
-            const TpwdCheckValidate = (rule, value, callback) => {
-                let vm = this;
-                if (value == '') {
-                    return callback(new Error('确认密码不能为空'));
-                } else if (value != vm.TeacherInfo.tPassword) {
-                    return callback(new Error('两次密码不一致'));
-                } else {
-                    callback();
-                }
-            };
+
             return {
                 StuInfo: {
                     stuId:'',
@@ -90,13 +60,6 @@
                     vcode:'',
                 },
 
-                TeacherInfo: {
-                    tId:'',
-                    tEmail: '',
-                    tPassword:'',
-                    tPassword2:'',
-                    tVcode:'',
-                },
 
                 rulesStuInfo: {
                     stuId:[
@@ -119,102 +82,48 @@
                     ]
                 },
 
-                rulesTeacherInfo: {
-                    tId:[
-                        { required: true, message: 'Please Fill in', trigger: 'blur' },
-                    ],
-                    tEmail: [
-                        { required: true, message: 'Please Fill in', trigger: 'blur' },
-                        { type: 'email', message: 'Uncorrect', trigger: 'blur' }
-                    ],
-                    tPassword:[
-                        { required: true, message: 'Please Fill in', trigger: 'blur' },
-                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
-                    ],
-                    tPassword2:[
-                        { validator: TpwdCheckValidate, trigger: 'blur', required: true },
-                        { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
-                    ],
-                    tVcode: [
-                        { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-
-                    ]
-                }
             }
         },
         computed:{
 
         },
         methods:{
-            ...mapMutations(["SET_STUINFO"],["SET_TEACHERINFO"]),
-            ShandleSubmit(name) {
-                let data = Api.SCheckCode(this.StuInfo.vcode);
-                if(parseInt(data.code) !=0)
-                {
-                    window.alert("验证码不正确！请重新输入");
-                    return;
-                }
+            ...mapMutations(["SET_STUINFO"]),
+            //提交学生注册信息
+            StudentHandleSubmit(name) {
                 this.$refs[name].validate(valid => {
                     if (valid) {
                         Api.Sregist(this.StuInfo)
                             .then(res => {
-                                this.SET_STUINFO(this.StuInfo);
-                                window.localStorage.setItem(
-                                    "StuentId",
-                                    this.StuInfo.stuId
-                                );
-                                this.$router.push({ name: "login" });
+                                    this.SET_STUINFO(this.StuInfo);
+                                    window.localStorage.setItem(
+                                        "StuentId",
+                                        this.StuInfo.stuId
+                                    );
+                                    this.$router.push({ name: "login" });
                             })
-                            .catch(err => {});
+                            .catch(err => {  });
                     } else {
-                        this.$Message.error("格式错误");
+                        this.$Message.error("数据格式错误");
                     }
                 });
             },
-            ThandleSubmit(name) {
-                let data = Api.TCheckCode(this.TeacherInfo.tVcode);
-                if(parseInt(data.code) !=0)
-                {
-                    window.alert("验证码不正确！请重新输入");
-                    return;
-                }
-                this.$refs[name].validate(valid => {
-                    if (valid) {
-                        Api.Tregist(this.TeacherInfo)
-                            .then(res => {
-                                this.SET_TEACHERINFO(this.TeacherInfo);
-                                window.localStorage.setItem(
-                                    "TeacherId",
-                                    this.TeacherInfo.tId
-                                );
-                                this.$router.push({ name: "login" });
-                            })
-                            .catch(err => {});
-                    } else {
-                        this.$Message.error("格式错误");
-                    }
-                });
-            },
-            ShandleVerify() {
+            //获取验证码
+            HandleVerify() {
                 let email = this.StuInfo.stuEmail.trim();
                 if (email) {
-                    Api.SgetVerify({ email })
-                        .then(res => {})
-                        .catch(err => {});
+                    Api.getVerify({ email })
+                        .then(res => {
+
+                        })
+                        .catch(err => {
+
+                        });
                 } else {
                     this.$Message.info("请输入邮箱号");
                 }
             },
-            ThandleVerify() {
-                let email = this.TeacherInfo.tEmail.trim();
-                if (email) {
-                    Api.TgetVerify({ email })
-                        .then(res => {})
-                        .catch(err => {});
-                } else {
-                    this.$Message.info("请输入邮箱号");
-                }
-            },
+            //重置清除
             handleReset (name) {
                 this.$refs[name].resetFields();
             },

@@ -45,4 +45,8 @@ const Student = {
     async getAllTrains() {
         return (await axios.get('/student/train/searchAll')).data
     },
+    //查看题目列表（全部实训）
+    /*async AllPostTrainId(data){
+        return (await axios.post('/student/title/search'),data).data;
+    }*/
 }

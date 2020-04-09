@@ -5,7 +5,7 @@
                 <Button type="primary" @click="handleSearch()" >查找</Button>
         </Form>
         <br><br>
-        <Table border :columns="columns" :data="trainList">
+        <Table border :columns="columns" :data="sTrainList">
             <template slot-scope="{ row, index }" slot="trainId">
                 <span>{{ row.trainId }}</span>
             </template>
@@ -21,7 +21,7 @@
             <template slot-scope="{ row, index }" slot="action">
                 <div>
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                    <Button type="error" size="small" @click="begin_choose(index)">开始选题</Button>
+                    <Button type="error" size="small" @click="beginChoose(index)">开始选题</Button>
                 </div>
             </template>
         </Table>
@@ -35,7 +35,7 @@
         data(){
             return{
                 search:'',
-                trainList:[],
+                sTrainList:[],
                 /*search_rule:{
                   search:[{trigger: 'blur', required: true },]
                 },*/
@@ -77,18 +77,18 @@
                 //获取实训列表
                 Api.getTrain()
                     .then(res=>{
-                        this.trainList=res.asList;
+                        this.sTrainList=res.trainInfoEntity;
                     })
                     .catch(err => {});
             },
             show (index) {
                 this.$Modal.info({
                     title: '实训详情',
-                    content: `实训编号：${this.trainList[index].trainId}<br>实训名称：${this.trainList[index].trainName}<br>选题截止日期：${this.trainList[index].tDate}`
+                    content: `实训编号：${this.sTrainList[index].trainId}<br>实训名称：${this.sTrainList[index].trainName}<br>选题截止日期：${this.sTrainList[index].tDate}`
                 })
             },
-            begin_choose (index) {
-                Api.postTrainId(this.trainList[index].trainId)
+            beginChoose (index) {
+                Api.postTrainId(this.sTrainList[index].trainId)
                     .then(res=>{
                         this.$router.push('/student/queList');
                     })

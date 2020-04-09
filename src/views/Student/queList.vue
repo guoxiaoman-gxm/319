@@ -69,7 +69,7 @@
         mounted(){
           Api.getTitles()
               .then(res=>{
-                  this.queList=res.data.questions;
+                  this.queList=res.titleList;
               })
               .catch(err => {
               });
@@ -82,18 +82,6 @@
             })
         },*/
         methods:{
-            /* handleEdit (row, index) {
-                 this.editTitleId = row.titleId;
-                 this.editTitleName = row.titleName;
-                 this.editDecribe = row.decribe;
-                 this.editIndex = index;
-             },
-             handleSave (index) {
-                 this.data[index].titleId = this.editTitleId;
-                 this.data[index].titleName = this.editTitleName;
-                 this.data[index].decribe = this.editDecribe;
-                 this.editIndex = -1;
-             },*/
             show (index) {
                 this.$Modal.info({
                     title: '题目详情',
@@ -105,10 +93,7 @@
                 Api.chooseTitle(this.queList[index].titleId)
                     .then(res=>{})
                     .catch(err => {});
-            }/*,
-            add (index) {
-                this.data.push(index, 1);
-            }*/
+            }
         }
     }
 </script>

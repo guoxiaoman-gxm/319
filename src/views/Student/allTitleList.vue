@@ -17,7 +17,7 @@
             <template slot-scope="{ row, index }" slot="action" class="buttons">
                 <div>
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                    <Button type="error" size="small" @click="handleChange(index)">换题</Button>
+                    <!--<Button type="error" size="small" @click="handleChoose(index)">选题</Button>-->
                 </div>
             </template>
         </Table>
@@ -30,7 +30,7 @@
     import Title from '@/components/title/index.vue'
     import Api from '../../api/index'
     export default {
-        name: "tQuestion",
+        name: "allTitleList",
         components:{
             Title
         },
@@ -66,10 +66,13 @@
                 /*editIndex: -1,*/  // 当前聚焦的输入框的行数
             }
         },
-        mounted() {
-            Api.getHaveChoosed().then(res=>{
-                this.queList=res.titleList;
-            }).catch(err => {});
+        mounted(){
+            Api.getTitles()
+                .then(res=>{
+                    this.queList=res.titleList;
+                })
+                .catch(err => {
+                });
         },
         methods:{
             show (index) {
@@ -77,17 +80,12 @@
                     title: '题目详情',
                     content: `题目编号：${this.queList[index].titleId}<br>题目名称：${this.queList[index].titleName}<br>题目内容：${this.queList[index].decribe}`
                 })
-            },
-            handleChange (index) {
-                this.queList.splice(index, 1);
-                Api.changeTitle(this.queList[index].titleId)
-                    .then(res=>{
-                            this.$router.push('/student/search');
-                    })
-                    .catch(err => {});
             }/*,
-            add (index) {
-                this.data.push(index, 1);
+            handleChoose (index) {
+                this.queList.splice(index, 1);
+                Api.chooseTitle(this.queList[index].titleId)
+                    .then(res=>{})
+                    .catch(err => {});
             }*/
         }
     }
