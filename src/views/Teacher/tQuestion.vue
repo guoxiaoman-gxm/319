@@ -9,23 +9,10 @@
                 <template slot-scope="{ row, index }" slot="trainName">
                     <span>{{ row.trainName}}</span>
                 </template>
-                <template slot-scope="{ row, index }" slot="titleId">
-                    <span>{{ row.titleId }}</span>
-                </template>
-
-                <template slot-scope="{ row, index }" slot="titleName">
-                    <span>{{ row.titleName }}</span>
-                </template>
-
-                <template slot-scope="{ row, index }" slot="decribe">
-                    <span>{{ row.decribe }}</span>
-                </template>
 
                 <template slot-scope="{ row, index }" slot="action">
                     <div>
-                        <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                        <Button size="small" style="margin-right: 5px" @click="edit(index)">修改</Button>
-                        <Button type="error" size="small" @click="remove(index)">删除</Button>
+                        <Button size="small" style="margin-right: 5px" @click="title(index)">实训详情</Button>
                     </div>
                 </template>
             </Table>
@@ -46,37 +33,17 @@
         },
         data(){
             return {
-                value1: '',
-                value2: '',
-                value3: '',
                 columns: [
                     {
                         title: '实训编号',
                         slot: 'trainId',
-                        width:'100px',
+                        width:'200px',
                         align:'center',
                     },
                     {
                         title: '实训名称',
                         slot: 'trainName',
-                        width:'100px',
-                        align:'center',
-                    },
-                    {
-                        title: '题目编号',
-                        slot: 'titleId',
-                        width:'100px',
-                        align:'center',
-                    },
-                    {
-                        title: '题目名称',
-                        slot: 'titleName',
-                        width:'150px',
-                        align:'center',
-                    },
-                    {
-                        title: '题目内容',
-                        slot: 'decribe',
+                        width:'400px',
                         align:'center',
                     },
                     {
@@ -88,38 +55,18 @@
                 ],
                 queList: [],
                 trainId:'',
-                stuId:'',
+                trainName:'',
                 editIndex: -1,  // 当前聚焦的输入框的行数
             }
         },
         mounted() {
-            Api.TeacherGetTitle().then(res=>{
-                this.queList=res.titleList;
-            }).catch(err=>{            })
+            Api.TeacherGetTrain().then(res=>{
+                this.queList=res.trainList;
+            }).catch(err=>{         })
         },
         methods:{
-            show (index) {
-                this.$Modal.info({
-                    title: '题目详情',
-                    content: `实训编号：${this.queList[index].trainId}<br>
-                               实训题目：${this.queList[index].trainName}<br>
-                               题目编号：${this.queList[index].titleId}<br>
-                               题目名称：${this.queList[index].titleName}<br>
-                               题目内容：${this.queList[index].decribe}<br>
-                               选题学生：${this.queList[index].stuId}<br>`
-                })
-            },
-
-            remove (index) {
-                this.queList.splice(index, 1);
-                Api.removeTitle(this.queList[index].titleId)
-                 .then(res=>{
-                     this.$router.push("tQuestion");
-                 })
-            },
-
-            edit (index) {
-                this.$router.push({name:"edit",params: { titleId:this.queList[index].titleId , trainId:this.queList[index].trainId }});
+            title (index) {
+                this.$router.push({name:"tTitle",params: { trainId:this.queList[index].trainId  }});
             }
         }
     }

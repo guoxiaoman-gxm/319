@@ -92,6 +92,11 @@ const routes = [
         component: () => import('../views/Teacher/tQuestion.vue')
       },
       {
+        path: 'tTitle',
+        name: 'tTitle',
+        component: () => import('../views/Teacher/tTitle.vue')
+      },
+      {
         path: 'tChangePwd',
         name: 'tChangePwd',
         component: () => import('../views/Teacher/tChangePwd.vue')

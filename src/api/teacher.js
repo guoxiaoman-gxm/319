@@ -28,7 +28,7 @@ const Teacher = {
         return (await axios.post('/teacher/password/update', data)).data;
     },
     //老师获得所有已发布信息
-    async TeacherGetTitle(){
+    async TeacherGetTrain(){
         return (await axios.get('/teacher/train/search')).data;
     },
     //通过实训编号获得信息
