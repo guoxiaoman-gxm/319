@@ -108,13 +108,7 @@
                     this.$Message.error("原密码不正确！请重新输入");
                     return;
                 }
-                //判断验证码是否正确
-                let data = Api.CheckCode(this.TeacherInfo.tVcode);
-                if(parseInt(data.code) !=1)
-                {
-                    this.$Message.error("验证码不正确！请重新输入");
-                    return;
-                }
+
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //传密码

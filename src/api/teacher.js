@@ -31,7 +31,7 @@ const Teacher = {
     async TeacherGetTitle(){
         return (await axios.get('/teacher/train/search')).data;
     },
-    //通过题目编号获得信息
+    //通过实训编号获得信息
     async getTitle(data){
         return (await axios.post('/teacher/title/search',data)).data;
     }

@@ -91,8 +91,6 @@
             ...mapMutations(["SET_STUINFO"]),
             //提交学生注册信息
             StudentHandleSubmit(name) {
-                //判断验证码是否正确
-                Api.CheckCode(this.StuInfo.vcode);
                 this.$refs[name].validate(valid => {
                     if (valid) {
                         Api.Sregist(this.StuInfo)

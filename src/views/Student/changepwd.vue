@@ -17,8 +17,8 @@
             <FormItem label="重复密码" prop="stuPassword2">
                 <Input v-model="StuInfo.stuPassword2" type="password" password  placeholder="repassword" style="width: 220px"/>
             </FormItem>
-            <FormItem label="验证码" prop="vcode">
-                <Input type="text" placeholder="验证码" v-model="StuInfo.vcode" style="width: 120px"></Input>
+            <FormItem label="验证码" prop="svcode">
+                <Input type="text" placeholder="验证码" v-model="StuInfo.svcode" style="width: 120px"></Input>
                 <Button type="primary" @click="HandleVerify" style="margin-right: 0px">获取验证码</Button>
             </FormItem>
             <br>
@@ -57,7 +57,7 @@
                     stuPassword:'',
                     stuPassword1:'',
                     stuPassword2:'',
-                    vcode:'',
+                    svcode:'',
                 },
                 rulesStuInfo: {
                     stuEmail: [
@@ -75,7 +75,7 @@
                         { validator: pwdCheckValidate, trigger: 'blur', required: true },
                         { type: 'string', pattern: /(?![0-9A-Z]+$)(?![0-9a-z]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, message: '密码由8-20位大小写字母数字组成', trigger: 'blur' }
                     ],
-                    vcode:[
+                    svcode:[
                         { required: true, message: 'Please Fill in', trigger: 'blur' },
                     ]
                 },
@@ -109,13 +109,7 @@
                     this.$Message.error("原密码不正确！请重新输入");
                     return;
                 }
-                //判断验证码是否正确
-                let data = Api.CheckCode(this.StuInfo.vcode);
-                if(parseInt(data.code) !=1)
-                {
-                    this.$Message.error("验证码不正确！请重新输入");
-                    return;
-                }
+
                 this.$refs[name].validate(valid=> {
                     if(valid) {
                         //传密码

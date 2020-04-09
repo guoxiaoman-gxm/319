@@ -4,9 +4,6 @@
             <FormItem prop="titleId" label="题目编号">
                 <Input type="text" v-model="Edit.titleId" disabled style="width: 220px;"></Input>
             </FormItem>
-            <FormItem prop="trainId" label="实训编号">
-                <Input type="text" v-model="Edit.trainId" disabled style="width: 220px"></Input>
-            </FormItem>
             <FormItem prop="titleName" label="题目名称">
                 <Input type="text" v-model="Edit.titleName" style="width: 220px;"></Input>
             </FormItem>
@@ -32,16 +29,12 @@
             return{
                 Edit:{
                     titleId:this.$route.params.titleId,
-                    trainId:'',
                     titleName:'',
                     decribe:'',
                 },
                 ruleEdit:{
                     titleId:[
                         { required: true, message: 'The tId cannot be empty', trigger: 'blur' }
-                    ],
-                    trainId:[
-                        { required: true, message: 'The trainName cannot be empty', trigger: 'blur' }
                     ],
                     titleName:[
                         { required: true, message: 'The titleName cannot be empty', trigger: 'blur' }

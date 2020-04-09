@@ -23,11 +23,6 @@ const User={
     async getVerify(data) {
         return (await axios.post('/mail/send', data)).data
     },
-    //检查验证码是否正确
-    async CheckCode(data) {
-        return (await axios.post('', data)).data
-    },
-
 }
 
 export default User;
