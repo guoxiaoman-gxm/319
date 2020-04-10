@@ -49,4 +49,5 @@ const Student = {
     /*async AllPostTrainId(data){
         return (await axios.post('/student/title/search'),data).data;
     }*/
-}
+};
+export default Student;

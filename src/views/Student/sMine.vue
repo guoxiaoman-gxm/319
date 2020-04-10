@@ -97,19 +97,26 @@
         methods:{
             ...mapMutations(["CHANGE_STUDENTINFO"]),
             handleSmine(name) {
-                this.$refs[name].validate(valid=> {
-                    if(valid) {
-                        //改变信息提交
-                        Api.changeSmine(this.stuInfo)
-                            .then(res=>{
-                                this.$Message.success(res.msg);
-                                this.CHANGE_STUDENTINFO(this.stuInfo);
-                            })
-                            .catch(err => {    });
-                    }else{
-                        this.$Message.error("数据错误");
-                    }
-                });
+                this.$Modal.confirm({
+                    title:'提示',
+                    content:'点击提交修改将会修改个人信息，确认修改？',
+                    onOk:()=>{
+                        this.$refs[name].validate(valid=> {
+                            if(valid) {
+                                //改变信息提交
+                                Api.changeSmine(this.stuInfo)
+                                    .then(res=>{
+                                        this.$Message.success(res.msg);
+                                        this.CHANGE_STUDENTINFO(this.stuInfo);
+                                    })
+                                    .catch(err => {    });
+                            }else{
+                                this.$Message.error("数据错误");
+                            }
+                        });
+                    },
+                    onCancel:()=>{}
+                })
             },
         }
     }

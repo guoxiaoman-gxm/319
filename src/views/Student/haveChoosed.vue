@@ -71,6 +71,14 @@
                 this.queList=res.titleList;
             }).catch(err => {});
         },
+
+       /* mounted() {
+            this.axios.get('/api/student/title/scan').then(res=>{
+                console.log(res.data.data.questions);
+                this.queList=res.data.data.questions;
+            }).catch(err => {});
+        },*/
+
         methods:{
             show (index) {
                 this.$Modal.info({
@@ -79,12 +87,19 @@
                 })
             },
             handleChange (index) {
-                this.queList.splice(index, 1);
-                Api.changeTitle(this.queList[index].titleId)
-                    .then(res=>{
-                            this.$router.push('/student/search');
-                    })
-                    .catch(err => {});
+                this.$Modal.confirm({
+                    title:'提示',
+                    content:'点击确认换题将会删除此题目并重新选题，确认换题？',
+                    onOk:()=>{
+                        this.queList.splice(index, 1);
+                        Api.changeTitle(this.queList[index].titleId)
+                            .then(res=>{
+                                this.$router.push('/student/search');
+                            })
+                            .catch(err => {});
+                    },
+                    onCancel:()=>{}
+                })
             }/*,
             add (index) {
                 this.data.push(index, 1);
